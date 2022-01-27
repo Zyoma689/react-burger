@@ -1,0 +1,34 @@
+.navigation {
+  max-width: 1280px;
+  margin: 0 auto;
+}
+
+.list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+
+.list_item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.list_item:first-of-type {
+  justify-content: left;
+}
+
+.list_item:last-of-type {
+  justify-content: right;
+}
+
+.sublist {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: row;
+}
