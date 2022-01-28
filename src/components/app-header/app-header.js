@@ -6,7 +6,7 @@ import NavBar from "../nav-bar/nav-bar";
 
 function AppHeader() {
   return (
-    <header>
+    <header className="mt-10">
       <NavBar/>
     </header>
   )

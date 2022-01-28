@@ -8,17 +8,21 @@ import IngredientsTabs from "../ingredients-tabs/ingredients-tabs";
 import IngredientsCardList from "../ingredients-card-list/ingredients-card-list";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
+import appStyles from "./app.module.css";
 
 function App() {
     return (
       <>
         <AppHeader/>
+        <main className={appStyles.main}>
+          <BurgerIngredients data={DATA}/>
+          <BurgerConstructor ingredients={CONSTRUCTOR_DATA}/>
+        </main>
         {/*<IngredientCard ingredient={DATA[0]} count={1} />*/}
         {/*<IngredientCard ingredient={DATA[1]} count={0} />*/}
         {/*<IngredientsTabs/>*/}
         {/*<IngredientsCardList array={DATA}/>*/}
         {/*<BurgerIngredients data={DATA}/>*/}
-        <BurgerConstructor ingredients={CONSTRUCTOR_DATA}/>
       </>
     );
 }

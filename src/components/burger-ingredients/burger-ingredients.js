@@ -11,7 +11,7 @@ export default function BurgerIngredients({ data }) {
   const main = data.filter((ingredient) => ingredient.type === 'main');
 
   return (
-    <section>
+    <section className="mt-10">
       <h1 className="text text_type_main-large mb-5">Соберите бургер</h1>
       <IngredientsTabs/>
       <div className={`${burgerIngredientsStyles.container} custom-scroll mt-10 pr-2`}>
