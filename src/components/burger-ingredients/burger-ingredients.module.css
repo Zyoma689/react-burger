@@ -1,0 +1,6 @@
+.container {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: 716px;
+  max-width: max-content;
+}
