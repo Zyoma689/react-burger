@@ -21,7 +21,7 @@ export default function IngredientCard({ ingredient, count }) {
             <p className="text text_type_digits-default">{price}</p>
             <CurrencyIcon type="primary" />
           </div>
-          <p className="text text_type_main-default">{name}</p>
+          <p className={`text text_type_main-default ${cardStyles.title}`}>{name}</p>
         </figcaption>
         {
           !!count && <Counter count={count} size="default" />
