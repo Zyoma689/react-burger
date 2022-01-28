@@ -1,5 +1,5 @@
 import React from "react";
-import { CONSTRUCTOR_TITLES } from "../../utils/constants";
+import { INGREDIENTS_TITLES } from "../../utils/constants";
 import IngredientsCardList from "../ingredients-card-list/ingredients-card-list";
 import burgerIngredientsStyles from "./burger-ingredients.module.css"
 import IngredientsTabs from "../ingredients-tabs/ingredients-tabs";
@@ -14,12 +14,12 @@ export default function BurgerIngredients({ data }) {
     <section>
       <h1 className="text text_type_main-large mb-5">Соберите бургер</h1>
       <IngredientsTabs/>
-      <div className={`${burgerIngredientsStyles.container} custom-scroll mt-10`}>
-        <p className="text text_type_main-medium">{CONSTRUCTOR_TITLES.BUN}</p>
+      <div className={`${burgerIngredientsStyles.container} custom-scroll mt-10 pr-2`}>
+        <p className="text text_type_main-medium">{INGREDIENTS_TITLES.BUN}</p>
         <IngredientsCardList ingredients={bun}/>
-        <p className="text text_type_main-medium">{CONSTRUCTOR_TITLES.SAUCE}</p>
+        <p className="text text_type_main-medium">{INGREDIENTS_TITLES.SAUCE}</p>
         <IngredientsCardList ingredients={sauce}/>
-        <p className="text text_type_main-medium">{CONSTRUCTOR_TITLES.MAIN}</p>
+        <p className="text text_type_main-medium">{INGREDIENTS_TITLES.MAIN}</p>
         <IngredientsCardList ingredients={main}/>
       </div>
     </section>
