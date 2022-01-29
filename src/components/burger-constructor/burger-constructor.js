@@ -2,9 +2,10 @@ import React from "react";
 import {ConstructorElement, Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import ConstructorList from "../constructor-list/constructor-list";
 import constructorStyles from "./burger-constructor.module.css"
-import IngredientDetails from "../ingredient-details/ingredient-details";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
+import PropTypes from "prop-types";
+import {ingredientPropTypes} from "../../utils/custom-prop-types";
 
 export default function BurgerConstructor({ ingredients }) {
   const bunIndex = ingredients.findIndex((ingredient) => ingredient.type === 'bun');
@@ -59,3 +60,7 @@ export default function BurgerConstructor({ ingredients }) {
     </section>
   );
 }
+
+BurgerConstructor.propTypes = {
+  ingredients: PropTypes.arrayOf(ingredientPropTypes).isRequired,
+};

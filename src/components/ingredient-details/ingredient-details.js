@@ -1,10 +1,9 @@
 import React from "react";
 import ingredientDetailsStyles from "./ingredient-details.module.css";
-
+import {ingredientPropTypes} from "../../utils/custom-prop-types";
 
 export default function IngredientDetails({ ingredient }) {
   const { image_large, name, calories, carbohydrates, fat, proteins } = ingredient;
-
   return (
     <figure className={`${ingredientDetailsStyles.container}`}>
       <img className={`${ingredientDetailsStyles.image}`} src={image_large} alt={name} />
@@ -40,3 +39,7 @@ export default function IngredientDetails({ ingredient }) {
     </figure>
   )
 }
+
+IngredientDetails.propTypes = {
+  ingredient: ingredientPropTypes.isRequired
+};

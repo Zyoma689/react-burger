@@ -3,13 +3,14 @@ import ReactDOM from "react-dom";
 import modalStyles from "./modal.module.css";
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "../modal-overlay/modal-overlay";
+import {KEY} from "../../utils/constants";
+import PropTypes from 'prop-types';
 
 const modalRoot = document.getElementById("react-modals");
 
 export default function Modal({ children, title, isOpen, onClose }) {
-
   function handleEscClose(e) {
-    if (e.key === 'Escape') {
+    if (e.key === KEY) {
       onClose();
     }
   }
@@ -46,3 +47,10 @@ export default function Modal({ children, title, isOpen, onClose }) {
     modalRoot
   );
 }
+
+Modal.propTypes = {
+  children: PropTypes.element.isRequired,
+  title: PropTypes.string,
+  isOpen: PropTypes.bool.isRequired,
+  onClose: PropTypes.func.isRequired,
+};

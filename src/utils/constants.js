@@ -5,3 +5,15 @@ export const INGREDIENTS_TITLES = {
 };
 
 export const BASE_URL = 'https://norma.nomoreparties.space/api';
+
+export const ORDER_INFO = {
+  id: '034536',
+};
+
+export const INGREDIENT_TYPE = {
+  BUN: 'bun',
+  SAUCE: 'sauce',
+  MAIN: 'main',
+};
+
+export const KEY = 'Escape';
