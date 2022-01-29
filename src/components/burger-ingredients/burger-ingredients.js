@@ -48,6 +48,8 @@ export default function BurgerIngredients({ ingredients }) {
           block: 'start'
         });
         break;
+      default:
+        break;
     }
   }
 
