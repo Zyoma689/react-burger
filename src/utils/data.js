@@ -1,3 +1,7 @@
+export const ORDER_INFO = {
+  id: '034536',
+};
+
 export const DATA = [
   {
     "_id":"60666c42cc7b410027a1a9b1",
