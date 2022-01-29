@@ -1,32 +1,35 @@
 import React from "react";
-import { BurgerIcon } from "@ya.praktikum/react-developer-burger-ui-components";
-import NavItem from "../nav-item/nav-item";
 import AppHeader from "../app-header/app-header";
-import IngredientCard from "../ingredient-card/ingredient-card";
-import { DATA, CONSTRUCTOR_DATA } from "../../utils/data";
-import IngredientsTabs from "../ingredients-tabs/ingredients-tabs";
-import IngredientsCardList from "../ingredients-card-list/ingredients-card-list";
+import { CONSTRUCTOR_DATA } from "../../utils/data";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import appStyles from "./app.module.css";
-import Modal from "../modal/modal";
+import * as api from "../../utils/api"
 
 function App() {
+  const [ ingredients, setIngredients ] = React.useState([]);
 
+  React.useEffect(() => {
+    handleGetIngredients();
+  }, []);
+
+  function handleGetIngredients() {
+    api.getIngredients()
+      .then((res) => {
+        setIngredients(res.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
   
   return (
     <>
       <AppHeader/>
       <main className={appStyles.main}>
-        <BurgerIngredients data={DATA}/>
-        <BurgerConstructor ingredients={CONSTRUCTOR_DATA}/>
+        <BurgerIngredients data={ingredients}/>
+        <BurgerConstructor ingredients={ingredients}/>
       </main>
-      {/*<IngredientCard ingredient={DATA[0]} count={1} />*/}
-      {/*<IngredientCard ingredient={DATA[1]} count={0} />*/}
-      {/*<IngredientsTabs/>*/}
-      {/*<IngredientsCardList array={DATA}/>*/}
-      {/*<BurgerIngredients data={DATA}/>*/}
-      {/*<Modal title='Детали ингредиента' isOpen={isOpen} onClose={handleCloseModal}></Modal>*/}
     </>
   );
 }

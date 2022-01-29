@@ -3,3 +3,5 @@ export const INGREDIENTS_TITLES = {
   SAUCE: 'Соусы',
   MAIN: 'Начинки',
 };
+
+export const BASE_URL = 'https://norma.nomoreparties.space/api';
