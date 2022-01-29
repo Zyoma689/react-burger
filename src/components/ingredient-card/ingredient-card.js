@@ -9,13 +9,13 @@ const ingredientPropTypes = PropTypes.shape({
   name: PropTypes.string.isRequired,
 });
 
-export default function IngredientCard({ ingredient, count }) {
+export default function IngredientCard({ ingredient, count, onSelect }) {
   const { image, price, name } = ingredient;
 
   return (
-    <li className={cardStyles.card}>
+    <li className={cardStyles.card} onClick={() => onSelect(ingredient)}>
       <figure className={cardStyles.card_container}>
-        <img className="ml-4 mr-4" src={image} alt=""/>
+        <img className="ml-4 mr-4" src={image} alt="" />
         <figcaption className={cardStyles.caption_container}>
           <div className={`${cardStyles.price_container} mt-1 mb-1`}>
             <p className="text text_type_digits-default">{price}</p>

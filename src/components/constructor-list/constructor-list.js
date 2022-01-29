@@ -6,12 +6,12 @@ export default function ConstructorList({ ingredients }) {
   return (
     <div className={`${listStyles.container} custom-scroll pr-2`}>
       {
-        ingredients.map((ingredient) => {
+        ingredients.map((ingredient, i) => {
           const { name, price, image, _id } = ingredient;
           return (
-            <li className={`${listStyles.item}`}>
+            <li className={`${listStyles.item}`} key={_id + i}>
               <DragIcon type={"primary"} />
-              <ConstructorElement text={name} thumbnail={image} price={price} key={_id} />
+              <ConstructorElement text={name} thumbnail={image} price={price} />
             </li>
           )
         })
