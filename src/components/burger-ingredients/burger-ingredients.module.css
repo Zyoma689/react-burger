@@ -1,0 +1,12 @@
+.section {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.container {
+  overflow-y: scroll;
+  overflow-x: hidden;
+  max-height: calc(100vh - 400px);
+  max-width: max-content;
+}

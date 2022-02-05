@@ -1,0 +1,7 @@
+.main {
+  max-width: max-content;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: max-content max-content;
+  gap: calc(var(--offset-base-size)  * 10);
+}
