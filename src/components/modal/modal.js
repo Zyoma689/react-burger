@@ -8,7 +8,7 @@ import PropTypes from 'prop-types';
 
 const modalRoot = document.getElementById("react-modals");
 
-export default function Modal({ children, title, isOpen, onClose }) {
+export default function Modal({ children, title, onClose }) {
   function handleEscClose(e) {
     if (e.key === KEY) {
       onClose();
@@ -20,10 +20,10 @@ export default function Modal({ children, title, isOpen, onClose }) {
     return () => {
       document.removeEventListener('keydown', handleEscClose);
     }
-  }, [onClose]);
+  }, [handleEscClose]);
 
   return ReactDOM.createPortal(
-    <div className={`${modalStyles.modal} ${isOpen && modalStyles.modal_opened}`}>
+    <div className={`${modalStyles.modal}`}>
       <div className={modalStyles.container}>
         {
           !!title && (

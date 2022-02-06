@@ -9,15 +9,13 @@ import Bun from "../bun/bun";
 
 export default function BurgerConstructor({ handlePlaceOrderButtonClick }) {
   const { constructorIngredients, setConstructorIngredients } = useContext(BurgerConstructorContext);
-  const [ bun, setBun ] = React.useState({});
-  const [ totalCost, setTotalCost ] = React.useState(0);
 
-  React.useEffect(() => {
-    setBun(constructorIngredients.find((ingredient) => ingredient.type === INGREDIENT_TYPE.BUN));
+  const bun = React.useMemo(() => {
+    return constructorIngredients.find((ingredient) => ingredient.type === INGREDIENT_TYPE.BUN);
   }, [constructorIngredients]);
 
-  React.useEffect(() => {
-    setTotalCost(constructorIngredients.reduce((acc, cur) => {
+  const totalCost = React.useMemo(() => {
+    return constructorIngredients.reduce((acc, cur) => {
       if (cur.price) {
         if (cur.type === INGREDIENT_TYPE.BUN) {
           return acc + 2 * cur.price;
@@ -25,8 +23,10 @@ export default function BurgerConstructor({ handlePlaceOrderButtonClick }) {
         return acc + cur.price;
       }
       return acc;
-    }, 0));
-  }, [bun, constructorIngredients]);
+    }, 0)
+  }, [constructorIngredients]);
+
+  const otherIngredients = constructorIngredients.filter((ingredient) => ingredient.type !== INGREDIENT_TYPE.BUN);
 
   function handleDeleteClick(id) {
     const newOtherIngredients = constructorIngredients.filter((ingredient) => ingredient._id !== id);
@@ -39,7 +39,7 @@ export default function BurgerConstructor({ handlePlaceOrderButtonClick }) {
         {!!bun && <Bun bun={bun} type={BUN_TYPE.TOP}/>}
 
         <ConstructorList
-          ingredients={constructorIngredients.filter((ingredient) => ingredient.type !== INGREDIENT_TYPE.BUN)}
+          ingredients={otherIngredients}
           onDelete={handleDeleteClick}
         />
 

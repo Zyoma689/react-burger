@@ -1,14 +1,9 @@
 .modal {
-  display: none;
+  display: flex;
   position: absolute;
   top: 15vh;
   left: calc((100vw - 720px) / 2)
 }
-
-.modal_opened {
-  display: flex;
-}
-
 
 .container {
   display: flex;

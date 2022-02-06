@@ -14,19 +14,32 @@ function App() {
   const [ ingredients, setIngredients ] = React.useState([]);
   const [ constructorIngredients, setConstructorIngredients] = React.useState([]);
 
-  const [ modalIsOpen, setModalIsOpen ] = React.useState(false);
+  const providerValue = React.useMemo(() => ({
+    constructorIngredients, setConstructorIngredients
+  }), [constructorIngredients]);
+
+  const [ modalIsOpen, setModalIsOpen ] = React.useState({
+    ingredientDetails: false,
+    orderDetails: false
+  });
   const [ selectedIngredient, setSelectedIngredient ] = React.useState({});
 
   const [ orderId, setOrderId] = React.useState('');
 
   function handleCloseModal() {
-    setModalIsOpen(false);
+    setModalIsOpen({
+      ingredientDetails: false,
+      orderDetails: false
+    });
     setSelectedIngredient({});
   }
 
   function handleIngredientCardClick(ingredient) {
     setSelectedIngredient(ingredient);
-    setModalIsOpen(true);
+    setModalIsOpen({
+      ...modalIsOpen,
+      ingredientDetails: true
+    });
   }
 
   function handlePlaceOrderButtonClick() {
@@ -34,7 +47,10 @@ function App() {
     api.placeOrder({ ingredients: order})
       .then((res) => {
         setOrderId(res.order.number.toString());
-        setModalIsOpen(true);
+        setModalIsOpen({
+          ...modalIsOpen,
+          orderDetails: true
+        });
       })
       .catch((err) => {
         console.log(err);
@@ -63,17 +79,24 @@ function App() {
       <main className={appStyles.main}>
         <BurgerIngredients ingredients={ingredients} handleIngredientCardClick={handleIngredientCardClick}/>
 
-        <BurgerConstructorContext.Provider value={{constructorIngredients, setConstructorIngredients}}>
+        <BurgerConstructorContext.Provider value={providerValue}>
           <BurgerConstructor handlePlaceOrderButtonClick={handlePlaceOrderButtonClick}/>
         </BurgerConstructorContext.Provider>
       </main>
-      <Modal isOpen={modalIsOpen} onClose={handleCloseModal} title={selectedIngredient._id && 'Детали ингредиента'}>
-        {
-          selectedIngredient._id ?
-            <IngredientDetails ingredient={selectedIngredient} /> : <OrderDetails orderId={orderId}/>
-        }
-
-      </Modal>
+      {
+        modalIsOpen.ingredientDetails && (
+          <Modal onClose={handleCloseModal} title={'Детали ингредиента'}>
+            <IngredientDetails ingredient={selectedIngredient} />
+          </Modal>
+        )
+      }
+      {
+        modalIsOpen.orderDetails && (
+          <Modal onClose={handleCloseModal}>
+            <OrderDetails orderId={orderId}/>
+          </Modal>
+        )
+      }
     </>
   );
 }

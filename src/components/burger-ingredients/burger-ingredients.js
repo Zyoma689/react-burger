@@ -9,21 +9,15 @@ import { SCROLL_PARAMS } from "../../utils/constants";
 
 
 export default function BurgerIngredients({ ingredients, handleIngredientCardClick }) {
-  const [ bun, setBun ] = React.useState([]);
-  const [ sauce, setSauce ] = React.useState([]);
-  const [ main, setMain ] = React.useState([]);
+  const bun = React.useMemo(() => ingredients.filter((ingredient) => ingredient.type === INGREDIENT_TYPE.BUN), [ingredients]);
+  const sauce = React.useMemo(() => ingredients.filter((ingredient) => ingredient.type === INGREDIENT_TYPE.SAUCE), [ingredients]);
+  const main = React.useMemo(() => ingredients.filter((ingredient) => ingredient.type === INGREDIENT_TYPE.MAIN), [ingredients]);
 
   const bunRef = React.useRef(null);
   const sauceRef = React.useRef(null);
   const mainRef = React.useRef(null);
 
   const [ current, setCurrent ] = React.useState(INGREDIENTS_TITLES.BUN);
-
-  React.useEffect(() => {
-    setBun(ingredients.filter((ingredient) => ingredient.type === INGREDIENT_TYPE.BUN));
-    setSauce(ingredients.filter((ingredient) => ingredient.type === INGREDIENT_TYPE.SAUCE));
-    setMain(ingredients.filter((ingredient) => ingredient.type === INGREDIENT_TYPE.MAIN));
-  }, [ingredients]);
 
   function handleTabClick(tab) {
     setCurrent(tab);
