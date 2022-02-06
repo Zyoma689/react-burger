@@ -5,6 +5,11 @@
 /.pnp
 .pnp.js
 
+# Optional REPL history
+.DS_Store
+.idea
+.vscode
+
 # testing
 /coverage
 

@@ -26,10 +26,11 @@ export default function Modal({ children, title, isOpen, onClose }) {
     <div className={`${modalStyles.modal} ${isOpen && modalStyles.modal_opened}`}>
       <div className={modalStyles.container}>
         {
-          !!title &&
-          (<div className={`${modalStyles.title} pt-10 ml-10 mr-10`}>
-            <h2 className={`text text_type_main-large`}>{title}</h2>
-          </div>)
+          !!title && (
+            <div className={`${modalStyles.title} pt-10 ml-10 mr-10`}>
+              <h2 className={`text text_type_main-large`}>{title}</h2>
+            </div>
+          )
         }
         {children}
         <button

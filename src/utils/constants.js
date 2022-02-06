@@ -17,3 +17,13 @@ export const INGREDIENT_TYPE = {
 };
 
 export const KEY = 'Escape';
+
+export const BUN_TYPE = {
+  TOP: 'top',
+  BOTTOM: 'bottom'
+};
+
+export const SCROLL_PARAMS = {
+  behavior: 'smooth',
+  block: 'start'
+};

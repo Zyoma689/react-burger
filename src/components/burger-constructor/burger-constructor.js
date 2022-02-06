@@ -1,66 +1,59 @@
-import React from "react";
-import {ConstructorElement, Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
+import React, {useContext} from "react";
+import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import ConstructorList from "../constructor-list/constructor-list";
 import constructorStyles from "./burger-constructor.module.css"
-import Modal from "../modal/modal";
-import OrderDetails from "../order-details/order-details";
 import PropTypes from "prop-types";
-import {ingredientPropTypes} from "../../utils/custom-prop-types";
+import { BurgerConstructorContext} from "../../services/burger-constructor-context";
+import {BUN_TYPE, INGREDIENT_TYPE} from "../../utils/constants";
+import Bun from "../bun/bun";
 
-export default function BurgerConstructor({ ingredients }) {
-  const bunIndex = ingredients.findIndex((ingredient) => ingredient.type === 'bun');
-  const bun = ingredients[bunIndex];
-  const otherIngredients = ingredients.filter((ingredient, i) => i !== bunIndex);
-  const { name, price, image } = bun;
+export default function BurgerConstructor({ handlePlaceOrderButtonClick }) {
+  const { constructorIngredients } = useContext(BurgerConstructorContext);
+  const [ otherIngredients, setOtherIngredients ] = React.useState([]);
+  const [ bun, setBun ] = React.useState({});
+  const [ totalCost, setTotalCost ] = React.useState(0);
 
-  let totalCost = 2 * price;
-  otherIngredients.forEach((ingredient) => totalCost += ingredient.price);
+  React.useEffect(() => {
+    setBun(constructorIngredients.find((ingredient) => ingredient.type === INGREDIENT_TYPE.BUN));
+    setOtherIngredients(constructorIngredients.filter((ingredient) => ingredient.type !== INGREDIENT_TYPE.BUN));
+  }, [constructorIngredients]);
 
-  const [ isOpen, setIsOpen ] = React.useState(false);
+  React.useEffect(() => {
+    let total = bun ? 2 * bun.price : 0;
+    setTotalCost(otherIngredients.reduce((acc, cur) => {
+      if (cur.price) {
+        return acc + cur.price;
+      }
+      return acc;
+    }, 0) + total);
+  }, [bun, otherIngredients]);
 
-  function handleCloseModal() {
-    setIsOpen(false);
-  }
-
-  function handlePlaceOrder() {
-    setIsOpen(true);
+  function handleDeleteClick(id) {
+    const newOtherIngredients = otherIngredients.filter((ingredient) => ingredient._id !== id);
+    console.log(newOtherIngredients);
+    setOtherIngredients(newOtherIngredients);
   }
 
   return (
     <section className={`${constructorStyles.section} mt-25`}>
       <ul className={`${constructorStyles.list}`}>
-        <li className="ml-8">
-          <ConstructorElement
-            type="top"
-            isLocked={true}
-            text={`${name} \n(верх)`}
-            thumbnail={image}
-            price={price} />
-        </li>
-        <ConstructorList ingredients={otherIngredients} />
-        <li className="ml-8">
-          <ConstructorElement
-            type="bottom"
-            isLocked={true}
-            text={`${name} \n(низ)`}
-            thumbnail={image}
-            price={price} />
-        </li>
+        {!!bun && <Bun bun={bun} type={BUN_TYPE.TOP}/>}
+
+        <ConstructorList ingredients={otherIngredients} onDelete={handleDeleteClick}/>
+
+        {!!bun && <Bun bun={bun} type={BUN_TYPE.BOTTOM}/>}
       </ul>
       <div className={`${constructorStyles.container} mt-10 mr-4`}>
         <span className="text text_type_digits-medium mr-10">{totalCost} <CurrencyIcon type="primary" /></span>
 
-        <Button type="primary" size="large" onClick={handlePlaceOrder}>
+        <Button type="primary" size="large" onClick={handlePlaceOrderButtonClick}>
           Оформить заказ
         </Button>
       </div>
-      <Modal isOpen={isOpen} onClose={handleCloseModal}>
-        <OrderDetails />
-      </Modal>
     </section>
   );
 }
 
 BurgerConstructor.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropTypes).isRequired,
+  handlePlaceOrderButtonClick: PropTypes.func.isRequired,
 };
