@@ -8,30 +8,29 @@ import {BUN_TYPE, INGREDIENT_TYPE} from "../../utils/constants";
 import Bun from "../bun/bun";
 
 export default function BurgerConstructor({ handlePlaceOrderButtonClick }) {
-  const { constructorIngredients } = useContext(BurgerConstructorContext);
-  const [ otherIngredients, setOtherIngredients ] = React.useState([]);
+  const { constructorIngredients, setConstructorIngredients } = useContext(BurgerConstructorContext);
   const [ bun, setBun ] = React.useState({});
   const [ totalCost, setTotalCost ] = React.useState(0);
 
   React.useEffect(() => {
     setBun(constructorIngredients.find((ingredient) => ingredient.type === INGREDIENT_TYPE.BUN));
-    setOtherIngredients(constructorIngredients.filter((ingredient) => ingredient.type !== INGREDIENT_TYPE.BUN));
   }, [constructorIngredients]);
 
   React.useEffect(() => {
-    let total = bun ? 2 * bun.price : 0;
-    setTotalCost(otherIngredients.reduce((acc, cur) => {
+    setTotalCost(constructorIngredients.reduce((acc, cur) => {
       if (cur.price) {
+        if (cur.type === INGREDIENT_TYPE.BUN) {
+          return acc + 2 * cur.price;
+        }
         return acc + cur.price;
       }
       return acc;
-    }, 0) + total);
-  }, [bun, otherIngredients]);
+    }, 0));
+  }, [bun, constructorIngredients]);
 
   function handleDeleteClick(id) {
-    const newOtherIngredients = otherIngredients.filter((ingredient) => ingredient._id !== id);
-    console.log(newOtherIngredients);
-    setOtherIngredients(newOtherIngredients);
+    const newOtherIngredients = constructorIngredients.filter((ingredient) => ingredient._id !== id);
+    setConstructorIngredients(newOtherIngredients);
   }
 
   return (
@@ -39,7 +38,10 @@ export default function BurgerConstructor({ handlePlaceOrderButtonClick }) {
       <ul className={`${constructorStyles.list}`}>
         {!!bun && <Bun bun={bun} type={BUN_TYPE.TOP}/>}
 
-        <ConstructorList ingredients={otherIngredients} onDelete={handleDeleteClick}/>
+        <ConstructorList
+          ingredients={constructorIngredients.filter((ingredient) => ingredient.type !== INGREDIENT_TYPE.BUN)}
+          onDelete={handleDeleteClick}
+        />
 
         {!!bun && <Bun bun={bun} type={BUN_TYPE.BOTTOM}/>}
       </ul>

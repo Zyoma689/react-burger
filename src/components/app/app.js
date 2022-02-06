@@ -8,6 +8,7 @@ import { BurgerConstructorContext } from "../../services/burger-constructor-cont
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import IngredientDetails from "../ingredient-details/ingredient-details";
+import {INGREDIENT_TYPE} from "../../utils/constants";
 
 function App() {
   const [ ingredients, setIngredients ] = React.useState([]);
@@ -15,6 +16,8 @@ function App() {
 
   const [ modalIsOpen, setModalIsOpen ] = React.useState(false);
   const [ selectedIngredient, setSelectedIngredient ] = React.useState({});
+
+  const [ orderId, setOrderId] = React.useState('');
 
   function handleCloseModal() {
     setModalIsOpen(false);
@@ -27,14 +30,24 @@ function App() {
   }
 
   function handlePlaceOrderButtonClick() {
-    setModalIsOpen(true);
+    const order = constructorIngredients.map((ingredient) => ingredient._id);
+    console.log(order);
+    api.placeOrder({ ingredients: order})
+      .then((res) => {
+        setOrderId(res.order.number.toString());
+        setModalIsOpen(true);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
   }
 
   function handleGetIngredients() {
     api.getIngredients()
       .then((res) => {
         setIngredients(res.data);
-        setConstructorIngredients(res.data);
+        const bunId = res.data.find((ingredient) => ingredient.type === INGREDIENT_TYPE.BUN)._id;
+        setConstructorIngredients(res.data.filter((ingredient) => ingredient.type !== INGREDIENT_TYPE.BUN || ingredient._id !== bunId));
       })
       .catch((err) => {
         console.log(err);
@@ -58,7 +71,7 @@ function App() {
       <Modal isOpen={modalIsOpen} onClose={handleCloseModal} title={selectedIngredient._id && 'Детали ингредиента'}>
         {
           selectedIngredient._id ?
-            <IngredientDetails ingredient={selectedIngredient} /> : <OrderDetails />
+            <IngredientDetails ingredient={selectedIngredient} /> : <OrderDetails orderId={orderId}/>
         }
 
       </Modal>
