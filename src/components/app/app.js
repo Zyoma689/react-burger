@@ -31,7 +31,6 @@ function App() {
 
   function handlePlaceOrderButtonClick() {
     const order = constructorIngredients.map((ingredient) => ingredient._id);
-    console.log(order);
     api.placeOrder({ ingredients: order})
       .then((res) => {
         setOrderId(res.order.number.toString());
