@@ -1,0 +1,21 @@
+.item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 568px;
+  cursor: grab;
+  opacity: 1;
+  /*cursor: -moz-grab;*/
+  /*cursor: -webkit-grab;*/
+}
+
+.item:active {
+  cursor: grabbing;
+  /*cursor: -moz-grabbing;*/
+  /*cursor: -webkit-grabbing;*/
+}
+
+.item_drag {
+  opacity: 0;
+}

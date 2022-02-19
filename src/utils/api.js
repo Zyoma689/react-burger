@@ -13,7 +13,7 @@ const getResponse = (res) => {
   }
 };
 
-export const getIngredients = () => {
+export const getIngredientsRequest = () => {
   return fetch(`${BASE_URL}/ingredients`, {
     method: 'GET',
     headers: {

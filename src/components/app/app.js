@@ -3,97 +3,100 @@ import AppHeader from "../app-header/app-header";
 import BurgerIngredients from "../burger-ingredients/burger-ingredients";
 import BurgerConstructor from "../burger-constructor/burger-constructor";
 import appStyles from "./app.module.css";
-import * as api from "../../utils/api";
-import { BurgerConstructorContext } from "../../services/burger-constructor-context";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import IngredientDetails from "../ingredient-details/ingredient-details";
 import {INGREDIENT_TYPE} from "../../utils/constants";
+import { useSelector, useDispatch } from "react-redux";
+import {CHANGE_BUNS, getIngredients, INCREASE_INGREDIENT} from "../../services/actions/burger-ingredients";
+import {
+  CLOSE_INGREDIENT_DETAILS_MODAL,
+  OPEN_INGREDIENT_DETAILS_MODAL,
+  selectIngredient,
+  UNSELECT_INGREDIENT
+} from "../../services/actions/ingredient-details";
+import {DndProvider} from "react-dnd";
+import {HTML5Backend} from "react-dnd-html5-backend";
+import {ADD_INGREDIENT, SET_BUNS} from "../../services/actions/burger-constructor";
+import { v4 as uuid } from "uuid";
+import {CLOSE_ORDER_DETAILS_MODAL} from "../../services/actions/order-details";
+
 
 function App() {
-  const [ ingredients, setIngredients ] = React.useState([]);
-  const [ constructorIngredients, setConstructorIngredients] = React.useState([]);
+  const dispatch = useDispatch();
 
-  const providerValue = React.useMemo(() => ({
-    constructorIngredients, setConstructorIngredients
-  }), [constructorIngredients]);
+  const ingredientDetailsModal = useSelector(state => state.ingredientDetails.modalIsOpen);
+  const orderDetailsModal = useSelector(state => state.orderDetails.modalIsOpen);
 
-  const [ modalIsOpen, setModalIsOpen ] = React.useState({
-    ingredientDetails: false,
-    orderDetails: false
-  });
-  const [ selectedIngredient, setSelectedIngredient ] = React.useState({});
+  function handleOnDrop(ingredient) {
+    const { _id, type } = ingredient;
 
-  const [ orderId, setOrderId] = React.useState('');
+    switch (type) {
+      case INGREDIENT_TYPE.BUN: {
+        dispatch({
+          type: CHANGE_BUNS,
+          _id: _id,
+        });
+        dispatch({
+          type: SET_BUNS,
+          bun: ingredient,
+        });
+        break;
+      }
+      default: {
+        dispatch({
+          type: INCREASE_INGREDIENT,
+          _id: _id,
+        });
+        dispatch({
+          type: ADD_INGREDIENT,
+          ingredient: { ...ingredient, uuid: uuid() },
+        });
+        break;
+      }
+    }
+  }
 
-  function handleCloseModal() {
-    setModalIsOpen({
-      ingredientDetails: false,
-      orderDetails: false
-    });
-    setSelectedIngredient({});
+  function handleCloseIngredientDetailsModal() {
+    dispatch({ type: CLOSE_INGREDIENT_DETAILS_MODAL });
+    dispatch({ type: UNSELECT_INGREDIENT });
+  }
+
+  function handleCloseOrderDetailsModal() {
+    dispatch({ type: CLOSE_ORDER_DETAILS_MODAL });
   }
 
   function handleIngredientCardClick(ingredient) {
-    setSelectedIngredient(ingredient);
-    setModalIsOpen({
-      ...modalIsOpen,
-      ingredientDetails: true
+    dispatch(selectIngredient(ingredient));
+    dispatch({
+      type: OPEN_INGREDIENT_DETAILS_MODAL,
     });
   }
 
-  function handlePlaceOrderButtonClick() {
-    const order = constructorIngredients.map((ingredient) => ingredient._id);
-    api.placeOrder({ ingredients: order})
-      .then((res) => {
-        setOrderId(res.order.number.toString());
-        setModalIsOpen({
-          ...modalIsOpen,
-          orderDetails: true
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
-
-  function handleGetIngredients() {
-    api.getIngredients()
-      .then((res) => {
-        setIngredients(res.data);
-        const bunId = res.data.find((ingredient) => ingredient.type === INGREDIENT_TYPE.BUN)._id;
-        setConstructorIngredients(res.data.filter((ingredient) => ingredient.type !== INGREDIENT_TYPE.BUN || ingredient._id !== bunId));
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
-
   React.useEffect(() => {
-    handleGetIngredients();
-  }, []);
+    dispatch(getIngredients())
+  }, [dispatch]);
 
   return (
     <>
       <AppHeader/>
       <main className={appStyles.main}>
-        <BurgerIngredients ingredients={ingredients} handleIngredientCardClick={handleIngredientCardClick}/>
-
-        <BurgerConstructorContext.Provider value={providerValue}>
-          <BurgerConstructor handlePlaceOrderButtonClick={handlePlaceOrderButtonClick}/>
-        </BurgerConstructorContext.Provider>
+        <DndProvider backend={HTML5Backend}>
+          <BurgerIngredients handleIngredientCardClick={handleIngredientCardClick}/>
+          <BurgerConstructor handleOnDrop={handleOnDrop}/>
+        </DndProvider>
       </main>
       {
-        modalIsOpen.ingredientDetails && (
-          <Modal onClose={handleCloseModal} title={'Детали ингредиента'}>
-            <IngredientDetails ingredient={selectedIngredient} />
+        ingredientDetailsModal && (
+          <Modal onClose={handleCloseIngredientDetailsModal} title={'Детали ингредиента'}>
+            <IngredientDetails />
           </Modal>
         )
       }
       {
-        modalIsOpen.orderDetails && (
-          <Modal onClose={handleCloseModal}>
-            <OrderDetails orderId={orderId}/>
+        orderDetailsModal && (
+          <Modal onClose={handleCloseOrderDetailsModal}>
+            <OrderDetails />
           </Modal>
         )
       }

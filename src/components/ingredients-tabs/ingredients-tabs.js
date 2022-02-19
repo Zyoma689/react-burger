@@ -3,12 +3,11 @@ import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import tabsStyles from "./ingredients-tabs.module.css";
 import { INGREDIENTS_TITLES } from "../../utils/constants";
 import PropTypes from 'prop-types';
+import {useSelector} from "react-redux";
 
 
-export default function IngredientsTabs({ current, onClick }) {
-  function handleTabClick(e) {
-    onClick(e);
-  }
+export default function IngredientsTabs({ onClick }) {
+  const current = useSelector(state => state.burgerIngredients.tab);
 
   return (
     <nav className={tabsStyles.tabs}>
@@ -17,7 +16,7 @@ export default function IngredientsTabs({ current, onClick }) {
           <Tab
             active={current === INGREDIENTS_TITLES.BUN}
             value={INGREDIENTS_TITLES.BUN}
-            onClick={handleTabClick}>
+            onClick={(evt) => onClick(evt)}>
             {INGREDIENTS_TITLES.BUN}
           </Tab>
         </li>
@@ -25,7 +24,7 @@ export default function IngredientsTabs({ current, onClick }) {
           <Tab
             active={current === INGREDIENTS_TITLES.SAUCE}
             value={INGREDIENTS_TITLES.SAUCE}
-            onClick={handleTabClick}>
+            onClick={(evt) => onClick(evt)}>
             {INGREDIENTS_TITLES.SAUCE}
           </Tab>
         </li>
@@ -33,7 +32,7 @@ export default function IngredientsTabs({ current, onClick }) {
           <Tab
             active={current === INGREDIENTS_TITLES.MAIN}
             value={INGREDIENTS_TITLES.MAIN}
-            onClick={handleTabClick}>
+            onClick={(evt) => onClick(evt)}>
             {INGREDIENTS_TITLES.MAIN}
           </Tab>
         </li>
@@ -43,6 +42,5 @@ export default function IngredientsTabs({ current, onClick }) {
 }
 
 IngredientsTabs.propTypes = {
-  current: PropTypes.string.isRequired,
   onClick: PropTypes.func.isRequired,
 };

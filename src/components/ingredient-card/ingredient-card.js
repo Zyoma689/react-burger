@@ -3,12 +3,18 @@ import {CurrencyIcon, Counter} from "@ya.praktikum/react-developer-burger-ui-com
 import cardStyles from './ingredient-card.module.css';
 import PropTypes from 'prop-types';
 import {ingredientPropTypes} from "../../utils/custom-prop-types";
+import {useDrag} from "react-dnd";
+import {DND_TYPES} from "../../utils/constants";
 
-export default function IngredientCard({ ingredient, count, onSelect }) {
-  const { image, price, name } = ingredient;
+export default function IngredientCard({ ingredient, onSelect }) {
+  const { image, price, name, quantity } = ingredient;
+  const [, dragRef] = useDrag({
+    type: DND_TYPES.CARD_FROM_INGREDIENTS,
+    item: ingredient,
+  });
 
   return (
-    <li className={cardStyles.card} onClick={() => onSelect(ingredient)}>
+    <li className={cardStyles.card} onClick={() => onSelect(ingredient)} ref={dragRef}>
       <figure className={cardStyles.card_container}>
         <img className="ml-4 mr-4" src={image} alt={name} />
         <figcaption className={cardStyles.caption_container}>
@@ -19,7 +25,7 @@ export default function IngredientCard({ ingredient, count, onSelect }) {
           <p className={`text text_type_main-default ${cardStyles.title}`}>{name}</p>
         </figcaption>
         {
-          !!count && <Counter count={count} size="default" />
+          !!quantity && <Counter count={quantity} size="default" />
         }
       </figure>
     </li>
@@ -28,6 +34,5 @@ export default function IngredientCard({ ingredient, count, onSelect }) {
 
 IngredientCard.propTypes = {
   ingredient: ingredientPropTypes.isRequired,
-  count: PropTypes.number.isRequired,
   onSelect: PropTypes.func.isRequired,
 };
