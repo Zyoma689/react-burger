@@ -11,4 +11,5 @@ export const ingredientPropTypes = PropTypes.shape({
   price: PropTypes.number,
   image: PropTypes.string,
   image_large: PropTypes.string,
+  uuid: PropTypes.string,
 });

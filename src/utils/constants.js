@@ -10,6 +10,7 @@ export const INGREDIENT_TYPE = {
   BUN: 'bun',
   SAUCE: 'sauce',
   MAIN: 'main',
+  NOT_BUN: 'ingredient',
 };
 
 export const KEY = 'Escape';
@@ -22,4 +23,9 @@ export const BUN_TYPE = {
 export const SCROLL_PARAMS = {
   behavior: 'smooth',
   block: 'start'
+};
+
+export const DND_TYPES = {
+  CARD_FROM_INGREDIENTS: 'CARD_FROM_INGREDIENTS',
+  CARD_FROM_CONSTRUCTOR: 'CARD_FROM_CONSTRUCTOR',
 };

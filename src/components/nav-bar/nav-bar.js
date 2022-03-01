@@ -9,7 +9,7 @@ function NavBar() {
     ORDER_FEED: 1,
     PERSONAL_AREA: 2,
   };
-  const [ current, setCurrent ] = React.useState(PAGE.CONSTRUCTOR);
+  const [ current ] = React.useState(PAGE.CONSTRUCTOR);
 
   return (
     <nav className={navBarStyles.navigation}>

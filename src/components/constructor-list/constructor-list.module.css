@@ -5,20 +5,3 @@
   max-height: calc(80px * 4 + 3 * 16px);
   overflow-y: scroll;
 }
-
-.item {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: center;
-  min-width: 568px;
-  cursor: grab;
-  /*cursor: -moz-grab;*/
-  /*cursor: -webkit-grab;*/
-}
-
-.item:active {
-  cursor: grabbing;
-  /*cursor: -moz-grabbing;*/
-  /*cursor: -webkit-grabbing;*/
-}

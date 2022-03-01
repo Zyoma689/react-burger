@@ -1,22 +1,20 @@
 import React from "react";
-import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import listStyles from "./constructor-list.module.css"
 import PropTypes from "prop-types";
-import {ingredientPropTypes} from "../../utils/custom-prop-types";
+import {useSelector} from "react-redux";
+import ConstructorCard from "../constructor-card/constructor-card";
 
-export default function ConstructorList({ ingredients, onDelete }) {
+export default function ConstructorList({ onDelete }) {
+  const { ingredients } = useSelector(state => state.burgerConstructor);
 
   return (
     <div className={`${listStyles.container} custom-scroll pr-2`}>
       {
-        ingredients.map((ingredient, i) => {
-          const { name, price, image, _id } = ingredient;
+        ingredients.map((ingredient, index) => {
+          const { uuid } = ingredient;
           return (
-            <li className={`${listStyles.item}`} key={_id + i}>
-              <DragIcon type={"primary"} />
-              <ConstructorElement text={name} thumbnail={image} price={price} handleClose={() => onDelete(_id)}/>
-            </li>
-          )
+            <ConstructorCard ingredient={ingredient} index={index} onDelete={onDelete} key={uuid}/>
+          );
         })
       }
     </div>
@@ -24,7 +22,6 @@ export default function ConstructorList({ ingredients, onDelete }) {
 }
 
 ConstructorList.propTypes = {
-  ingredients: PropTypes.arrayOf(ingredientPropTypes).isRequired,
   onDelete: PropTypes.func.isRequired,
 };
 
