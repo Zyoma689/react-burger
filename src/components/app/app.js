@@ -1,25 +1,19 @@
 import React from "react";
 import AppHeader from "../app-header/app-header";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
 import appStyles from "./app.module.css";
 import Modal from "../modal/modal";
 import OrderDetails from "../order-details/order-details";
 import IngredientDetails from "../ingredient-details/ingredient-details";
-import {INGREDIENT_TYPE} from "../../utils/constants";
 import { useSelector, useDispatch } from "react-redux";
-import {CHANGE_BUNS, getIngredients, INCREASE_INGREDIENT} from "../../services/actions/burger-ingredients";
+import { getIngredients } from "../../services/actions/burger-ingredients";
 import {
   CLOSE_INGREDIENT_DETAILS_MODAL,
-  OPEN_INGREDIENT_DETAILS_MODAL,
-  selectIngredient,
   UNSELECT_INGREDIENT
 } from "../../services/actions/ingredient-details";
-import {DndProvider} from "react-dnd";
-import {HTML5Backend} from "react-dnd-html5-backend";
-import {ADD_INGREDIENT, SET_BUNS} from "../../services/actions/burger-constructor";
-import { v4 as uuid } from "uuid";
 import {CLOSE_ORDER_DETAILS_MODAL} from "../../services/actions/order-details";
+
+import { BrowserRouter as Router, Route, Switch, useHistory, useLocation } from "react-router-dom";
+import {HomePage} from "../../pages";
 
 
 function App() {
@@ -42,13 +36,15 @@ function App() {
   }, [dispatch]);
 
   return (
-    <>
+    <Router>
       <AppHeader/>
       <main className={appStyles.main}>
-        <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients />
-          <BurgerConstructor />
-        </DndProvider>
+        <Switch>
+          <Route exact path="/">
+            <HomePage />
+          </Route>
+        </Switch>
+
       </main>
       {
         ingredientDetailsModal && (
@@ -64,7 +60,7 @@ function App() {
           </Modal>
         )
       }
-    </>
+    </Router>
   );
 }
 

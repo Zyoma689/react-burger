@@ -3,7 +3,6 @@ import { INGREDIENTS_TITLES, INGREDIENT_TYPE } from "../../utils/constants";
 import IngredientsCardList from "../ingredients-card-list/ingredients-card-list";
 import burgerIngredientsStyles from "./burger-ingredients.module.css"
 import IngredientsTabs from "../ingredients-tabs/ingredients-tabs";
-import PropTypes from "prop-types";
 import { SCROLL_PARAMS } from "../../utils/constants";
 import {useDispatch, useSelector} from "react-redux";
 import {CHANGE_TAB} from "../../services/actions/burger-ingredients";

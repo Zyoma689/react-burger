@@ -2,7 +2,6 @@ import React from "react";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import ConstructorList from "../constructor-list/constructor-list";
 import constructorStyles from "./burger-constructor.module.css"
-import PropTypes from "prop-types";
 import {BUN_TYPE, DND_TYPES, INGREDIENT_TYPE} from "../../utils/constants";
 import Bun from "../bun/bun";
 import {useDispatch, useSelector} from "react-redux";
