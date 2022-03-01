@@ -28,35 +28,6 @@ function App() {
   const ingredientDetailsModal = useSelector(state => state.ingredientDetails.modalIsOpen);
   const orderDetailsModal = useSelector(state => state.orderDetails.modalIsOpen);
 
-  function handleOnDrop(ingredient) {
-    const { _id, type } = ingredient;
-
-    switch (type) {
-      case INGREDIENT_TYPE.BUN: {
-        dispatch({
-          type: CHANGE_BUNS,
-          _id: _id,
-        });
-        dispatch({
-          type: SET_BUNS,
-          bun: ingredient,
-        });
-        break;
-      }
-      default: {
-        dispatch({
-          type: INCREASE_INGREDIENT,
-          _id: _id,
-        });
-        dispatch({
-          type: ADD_INGREDIENT,
-          ingredient: { ...ingredient, uuid: uuid() },
-        });
-        break;
-      }
-    }
-  }
-
   function handleCloseIngredientDetailsModal() {
     dispatch({ type: CLOSE_INGREDIENT_DETAILS_MODAL });
     dispatch({ type: UNSELECT_INGREDIENT });
@@ -64,13 +35,6 @@ function App() {
 
   function handleCloseOrderDetailsModal() {
     dispatch({ type: CLOSE_ORDER_DETAILS_MODAL });
-  }
-
-  function handleIngredientCardClick(ingredient) {
-    dispatch(selectIngredient(ingredient));
-    dispatch({
-      type: OPEN_INGREDIENT_DETAILS_MODAL,
-    });
   }
 
   React.useEffect(() => {
@@ -82,8 +46,8 @@ function App() {
       <AppHeader/>
       <main className={appStyles.main}>
         <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients handleIngredientCardClick={handleIngredientCardClick}/>
-          <BurgerConstructor handleOnDrop={handleOnDrop}/>
+          <BurgerIngredients />
+          <BurgerConstructor />
         </DndProvider>
       </main>
       {

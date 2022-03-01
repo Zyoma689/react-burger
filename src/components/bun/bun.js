@@ -27,5 +27,5 @@ export default function Bun({ type }) {
 }
 
 Bun.propTypes = {
-  type: PropTypes.string
+  type: PropTypes.string.isRequired,
 };

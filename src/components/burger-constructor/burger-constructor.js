@@ -3,16 +3,17 @@ import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-comp
 import ConstructorList from "../constructor-list/constructor-list";
 import constructorStyles from "./burger-constructor.module.css"
 import PropTypes from "prop-types";
-import {BUN_TYPE, DND_TYPES} from "../../utils/constants";
+import {BUN_TYPE, DND_TYPES, INGREDIENT_TYPE} from "../../utils/constants";
 import Bun from "../bun/bun";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
-import {DELETE_INGREDIENT} from "../../services/actions/burger-constructor";
-import {DECREASE_INGREDIENT} from "../../services/actions/burger-ingredients";
+import {ADD_INGREDIENT, DELETE_INGREDIENT, SET_BUNS} from "../../services/actions/burger-constructor";
+import {CHANGE_BUNS, DECREASE_INGREDIENT, INCREASE_INGREDIENT} from "../../services/actions/burger-ingredients";
 import {placeOrderAction} from "../../services/actions/order-details";
+import {v4 as uuid} from "uuid";
 
 
-export default function BurgerConstructor({ handleOnDrop }) {
+export default function BurgerConstructor() {
   const dispatch = useDispatch();
 
   const [, dropTargetRef] = useDrop({
@@ -51,6 +52,35 @@ export default function BurgerConstructor({ handleOnDrop }) {
     dispatch(placeOrderAction(order));
   }
 
+  function handleOnDrop(ingredient) {
+    const { _id, type } = ingredient;
+
+    switch (type) {
+      case INGREDIENT_TYPE.BUN: {
+        dispatch({
+          type: CHANGE_BUNS,
+          _id: _id,
+        });
+        dispatch({
+          type: SET_BUNS,
+          bun: ingredient,
+        });
+        break;
+      }
+      default: {
+        dispatch({
+          type: INCREASE_INGREDIENT,
+          _id: _id,
+        });
+        dispatch({
+          type: ADD_INGREDIENT,
+          ingredient: { ...ingredient, uuid: uuid() },
+        });
+        break;
+      }
+    }
+  }
+
   return (
     <section className={`${constructorStyles.section} mt-25`} ref={dropTargetRef}>
       <ul className={`${constructorStyles.list}`}>
@@ -70,7 +100,3 @@ export default function BurgerConstructor({ handleOnDrop }) {
     </section>
   );
 }
-
-BurgerConstructor.propTypes = {
-  handleOnDrop: PropTypes.func.isRequired,
-};

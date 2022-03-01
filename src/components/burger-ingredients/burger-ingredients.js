@@ -7,9 +7,10 @@ import PropTypes from "prop-types";
 import { SCROLL_PARAMS } from "../../utils/constants";
 import {useDispatch, useSelector} from "react-redux";
 import {CHANGE_TAB} from "../../services/actions/burger-ingredients";
+import {OPEN_INGREDIENT_DETAILS_MODAL, selectIngredient} from "../../services/actions/ingredient-details";
 
 
-export default function BurgerIngredients({ handleIngredientCardClick }) {
+export default function BurgerIngredients() {
   const dispatch = useDispatch();
   const { ingredients } = useSelector(state => state.burgerIngredients);
 
@@ -20,6 +21,13 @@ export default function BurgerIngredients({ handleIngredientCardClick }) {
   const bunRef = React.useRef(null);
   const sauceRef = React.useRef(null);
   const mainRef = React.useRef(null);
+
+  function handleIngredientCardClick(ingredient) {
+    dispatch(selectIngredient(ingredient));
+    dispatch({
+      type: OPEN_INGREDIENT_DETAILS_MODAL,
+    });
+  }
 
   function handleTabClick(tab) {
     dispatch({
@@ -81,7 +89,3 @@ export default function BurgerIngredients({ handleIngredientCardClick }) {
     </section>
   );
 }
-
-BurgerIngredients.propTypes = {
-  handleIngredientCardClick: PropTypes.func.isRequired,
-};
