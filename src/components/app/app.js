@@ -13,7 +13,7 @@ import {
 import {CLOSE_ORDER_DETAILS_MODAL} from "../../services/actions/order-details";
 
 import { BrowserRouter as Router, Route, Switch, useHistory, useLocation } from "react-router-dom";
-import {HomePage} from "../../pages";
+import {HomePage, LoginPage} from "../../pages";
 
 
 function App() {
@@ -40,8 +40,11 @@ function App() {
       <AppHeader/>
       <main className={appStyles.main}>
         <Switch>
-          <Route exact path="/">
+          <Route exact path="/111">
             <HomePage />
+          </Route>
+          <Route exact path="/">
+            <LoginPage />
           </Route>
         </Switch>
 

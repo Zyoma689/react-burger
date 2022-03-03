@@ -18,7 +18,7 @@ export const getIngredientsRequest = () => {
     method: 'GET',
     headers: {
       "Content-Type": "application/json"
-    }
+    },
   })
     .then(getResponse)
 };
@@ -29,7 +29,17 @@ export const placeOrder = ({ ingredients }) => {
     headers: {
       "Content-Type": "application/json"
     },
-    body: JSON.stringify({ ingredients })
+    body: JSON.stringify({ ingredients }),
   })
     .then(getResponse)
+};
+
+export const login = ({ email, password }) => {
+  return fetch(`${BASE_URL}/auth/login`, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ email, password }),
+  })
 };

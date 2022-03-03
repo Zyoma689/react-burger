@@ -29,3 +29,19 @@ export const DND_TYPES = {
   CARD_FROM_INGREDIENTS: 'CARD_FROM_INGREDIENTS',
   CARD_FROM_CONSTRUCTOR: 'CARD_FROM_CONSTRUCTOR',
 };
+
+export const INPUT = {
+  TYPE: {
+    EMAIL: 'email',
+    TEXT: 'text',
+    PASSWORD: 'password',
+  },
+  PLACEHOLDER: {
+    EMAIL: 'E-mail',
+    PASSWORD: 'Пароль',
+    NAME: 'Имя',
+    RESTORE: 'Укажите e-mail',
+    NEW_PASS: 'Введите новый пароль',
+    CODE: 'Введите код из письма',
+  },
+};

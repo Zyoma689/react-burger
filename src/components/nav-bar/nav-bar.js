@@ -1,7 +1,7 @@
 import React from "react";
 import NavItem from "../nav-item/nav-item";
 import {BurgerIcon, ListIcon, Logo, ProfileIcon} from "@ya.praktikum/react-developer-burger-ui-components";
-import navBarStyles from "./nav-bar.module.css";
+import styles from "./nav-bar.module.css";
 
 function NavBar() {
   const PAGE = {
@@ -12,10 +12,10 @@ function NavBar() {
   const [ current ] = React.useState(PAGE.CONSTRUCTOR);
 
   return (
-    <nav className={navBarStyles.navigation}>
-      <ul className={navBarStyles.list}>
-        <li className={navBarStyles.list_item}>
-          <ul className={navBarStyles.sublist}>
+    <nav className={styles.navigation}>
+      <ul className={styles.list}>
+        <li className={styles.list_item}>
+          <ul className={styles.sublist}>
             <li className="mr-2">
               <NavItem text="Конструктор" isActive={current === PAGE.CONSTRUCTOR}>
                 <BurgerIcon type={current === PAGE.CONSTRUCTOR ? "primary" : "secondary"}/>
@@ -30,11 +30,11 @@ function NavBar() {
           </ul>
         </li>
 
-        <li className={navBarStyles.list_item}>
+        <li className={styles.list_item}>
           <Logo/>
         </li>
 
-        <li className={navBarStyles.list_item}>
+        <li className={styles.list_item}>
           <NavItem text="Личный кабинет" isActive={current === PAGE.PERSONAL_AREA}>
             <ProfileIcon type={current === PAGE.PERSONAL_AREA ? "primary" : "secondary"}/>
           </NavItem>
