@@ -6,6 +6,13 @@ export const INGREDIENTS_TITLES = {
 
 export const BASE_URL = 'https://norma.nomoreparties.space/api';
 
+export const ENDPOINT = {
+  LOGIN: '/auth/login',
+  REGISTER: '/auth/register',
+  FORGOT_PASSWORD: '/password-reset',
+  RESET_PASSWORD: '/password-reset/reset',
+};
+
 export const INGREDIENT_TYPE = {
   BUN: 'bun',
   SAUCE: 'sauce',
@@ -34,6 +41,11 @@ export const INPUT = {
   TYPE: {
     EMAIL: 'email',
     TEXT: 'text',
+    PASSWORD: 'password',
+  },
+  NAME: {
+    EMAIL: 'email',
+    NAME: 'name',
     PASSWORD: 'password',
   },
   PLACEHOLDER: {

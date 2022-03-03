@@ -1,4 +1,4 @@
-import { BASE_URL } from "./constants";
+import {BASE_URL, ENDPOINT} from "./constants";
 
 const getResponse = (res) => {
   if (res.ok) {
@@ -42,4 +42,27 @@ export const login = ({ email, password }) => {
     },
     body: JSON.stringify({ email, password }),
   })
+    .then(getResponse)
+};
+
+export const register = ({ name, email, password}) => {
+  return fetch(BASE_URL + ENDPOINT.REGISTER, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ name, email, password }),
+  })
+    .then(getResponse)
+};
+
+export const forgotPassword = ({ email }) => {
+  return fetch(BASE_URL + ENDPOINT.FORGOT_PASSWORD, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ email }),
+  })
+    .then(getResponse)
 };

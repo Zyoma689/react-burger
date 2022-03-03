@@ -1,15 +1,16 @@
 import React from "react";
-import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
+import styles from "../login/login.module.css";
+import {Button, Input, PasswordInput} from "@ya.praktikum/react-developer-burger-ui-components";
 import {INPUT} from "../../utils/constants";
-import {useDispatch, useSelector} from "react-redux";
-import {login} from "../../services/actions/login";
 import {Link} from "react-router-dom";
-import styles from "./login.module.css"
+import {useDispatch} from "react-redux";
+import {register} from "../../services/actions/register";
 
-export function LoginPage() {
+export function RegisterPage() {
   const dispatch = useDispatch();
 
   const [ formValue, setFormValue ] = React.useState({
+    name: '',
     email: '',
     password: '',
   });
@@ -23,13 +24,22 @@ export function LoginPage() {
 
   function onSubmit(evt) {
     evt.preventDefault();
-    dispatch(login(formValue));
+    dispatch(register(formValue));
   }
 
   return (
     <div className={styles.container}>
-      <h2 className={`text text_type_main-medium mb-6`}>Вход</h2>
+      <h2 className={`text text_type_main-medium mb-6`}>Регистрация</h2>
       <form className={styles.form}>
+        <div className="mb-6">
+          <Input
+            type={INPUT.TYPE.TEXT}
+            placeholder={INPUT.PLACEHOLDER.NAME}
+            name={INPUT.NAME.NAME}
+            onChange={onFormChange}
+            value={formValue.name}
+          />
+        </div>
         <div className="mb-6">
           <Input
             type={INPUT.TYPE.EMAIL}
@@ -46,15 +56,11 @@ export function LoginPage() {
             onChange={onFormChange}
           />
         </div>
-        <Button type="primary" size="large" onClick={onSubmit}>Войти</Button>
+        <Button type="primary" size="large" onClick={onSubmit}>Зарегистрироваться</Button>
       </form>
 
-      <p className="text text_type_main-default text_color_inactive mt-20">Вы — новый пользователь?
-        <Link to="/register" className={styles.link}> Зарегистрироваться</Link>
-      </p>
-
-      <p className="text text_type_main-default text_color_inactive mt-4">Забыли пароль?
-        <Link to="/forgot-password" className={styles.link}> Восстановить пароль</Link>
+      <p className="text text_type_main-default text_color_inactive mt-20">Уже зарегистрированы?
+        <Link to="/login" className={styles.link}> Войти</Link>
       </p>
     </div>
   );
