@@ -47,6 +47,7 @@ export const INPUT = {
     EMAIL: 'email',
     NAME: 'name',
     PASSWORD: 'password',
+    CODE: 'token',
   },
   PLACEHOLDER: {
     EMAIL: 'E-mail',

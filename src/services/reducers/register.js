@@ -14,21 +14,21 @@ export const registerReducer = (state = initialState, action) => {
     case REGISTER_FORM_SUBMIT: {
       return {
         ...state,
-        loginRequest: true,
-        loginFailed: false,
+        registerRequest: true,
+        registerFailed: false,
       }
     }
     case REGISTER_FORM_SUBMIT_SUCCESS: {
       return {
         ...state,
-        loginRequest: false,
+        registerRequest: false,
       }
     }
     case REGISTER_FORM_SUBMIT_FAILED: {
       return {
         ...state,
-        loginRequest: false,
-        loginFailed: true,
+        registerRequest: false,
+        registerFailed: true,
       }
     }
     default: {

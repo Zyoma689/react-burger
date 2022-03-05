@@ -13,7 +13,7 @@ import {
 import {CLOSE_ORDER_DETAILS_MODAL} from "../../services/actions/order-details";
 
 import { BrowserRouter as Router, Route, Switch, useHistory, useLocation } from "react-router-dom";
-import {HomePage, LoginPage, RegisterPage, ForgotPasswordPage } from "../../pages";
+import {HomePage, LoginPage, RegisterPage, ForgotPasswordPage, ResetPasswordPage, ProfilePage} from "../../pages";
 
 
 function App() {
@@ -38,26 +38,31 @@ function App() {
   return (
     <Router>
       <AppHeader/>
-      <main className={appStyles.main}>
-        <Switch>
-          <Route exact path="/">
-            <HomePage />
-          </Route>
 
-          <Route exact path="/login">
-            <LoginPage />
-          </Route>
+      <Switch>
+        <Route exact path="/">
+          <HomePage />
+        </Route>
 
-          <Route exact path="/register">
-            <RegisterPage />
-          </Route>
+        <Route exact path="/login">
+          <LoginPage />
+        </Route>
 
-          <Route exact path="/forgot-password">
-            <ForgotPasswordPage />
-          </Route>
-        </Switch>
+        <Route exact path="/register">
+          <RegisterPage />
+        </Route>
 
-      </main>
+        <Route exact path="/forgot-password">
+          <ForgotPasswordPage />
+        </Route>
+        <Route exact path="/reset-password">
+          <ResetPasswordPage />
+        </Route>
+        <Route exact path="/profile">
+          <ProfilePage />
+        </Route>
+      </Switch>
+
       {
         ingredientDetailsModal && (
           <Modal onClose={handleCloseIngredientDetailsModal} title={'Детали ингредиента'}>

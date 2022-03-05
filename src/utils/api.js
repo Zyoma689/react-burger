@@ -35,7 +35,7 @@ export const placeOrder = ({ ingredients }) => {
 };
 
 export const login = ({ email, password }) => {
-  return fetch(`${BASE_URL}/auth/login`, {
+  return fetch(BASE_URL + ENDPOINT.LOGIN, {
     method: 'POST',
     headers: {
       "Content-Type": "application/json"
@@ -66,3 +66,14 @@ export const forgotPassword = ({ email }) => {
   })
     .then(getResponse)
 };
+
+export const resetPassword = ({ token, password }) => {
+  return fetch(BASE_URL + ENDPOINT.RESET_PASSWORD, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify({ token, password }),
+  })
+    .then(getResponse)
+}
