@@ -8,6 +8,7 @@ export const CHANGE_BUNS = 'CHANGE_BUNS';
 
 export const INCREASE_INGREDIENT = 'INCREASE_INGREDIENT';
 export const DECREASE_INGREDIENT = 'DECREASE_INGREDIENT';
+export const CLEAR_QUANTITY = 'CLEAR_QUANTITY';
 
 export const CHANGE_TAB = 'CHANGE_TAB';
 
@@ -28,5 +29,11 @@ export function getIngredients() {
           type: GET_INGREDIENTS_FAILED,
         })
       })
+  }
+}
+
+export function clearQuantity() {
+  return {
+    type: CLEAR_QUANTITY,
   }
 }

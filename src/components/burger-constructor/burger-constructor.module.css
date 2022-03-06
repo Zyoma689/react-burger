@@ -4,6 +4,7 @@
   align-items: flex-end;
   justify-content: center;
   width: 600px;
+  position: relative;
 }
 
 .list {

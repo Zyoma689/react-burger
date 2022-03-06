@@ -11,11 +11,14 @@ import {CHANGE_BUNS, DECREASE_INGREDIENT, INCREASE_INGREDIENT} from "../../servi
 import {placeOrderAction} from "../../services/actions/order-details";
 import {v4 as uuid} from "uuid";
 import {useHistory} from "react-router-dom";
+import Preloader from "../preloader/preloader";
 
 
 export default function BurgerConstructor() {
   const dispatch = useDispatch();
   const { isAuthenticated } = useSelector(state => state.access);
+  const { placeOrderRequest } = useSelector(state => state.orderDetails);
+
 
   const history = useHistory();
 
@@ -106,6 +109,9 @@ export default function BurgerConstructor() {
           Оформить заказ
         </Button>
       </div>
+      {
+        placeOrderRequest && <Preloader />
+      }
     </section>
   );
 }

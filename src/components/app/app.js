@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo} from "react";
 import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -56,7 +56,7 @@ function App() {
     <>
       <AppHeader/>
 
-      <Switch location={modal || location}>
+      <Switch location={ingredientDetailsModal ? modal : location}>
         <Route exact path={PATH.HOME}>
           <HomePage />
         </Route>
@@ -72,26 +72,26 @@ function App() {
         <Route exact path={PATH.FORGOT_PASSWORD}>
           <ForgotPasswordPage />
         </Route>
+
         <Route exact path={PATH.RESET_PASSWORD}>
           <ResetPasswordPage />
         </Route>
+
         <ProtectedRoute path={PATH.PROFILE}>
           <ProfilePage />
         </ProtectedRoute>
 
-        {
-          !modal &&
-            <Route exact path={PATH.INGREDIENT}>
-              <IngredientDetailsPage />
-            </Route>
-        }
+        <Route exact path={PATH.INGREDIENT}>
+          <IngredientDetailsPage />
+        </Route>
+
         <Route>
           <NotFoundPage />
         </Route>
       </Switch>
 
       {
-        ingredientDetailsModal && modal && (
+        ingredientDetailsModal && (
           <Route path={PATH.INGREDIENT}>
             <Modal onClose={handleCloseIngredientDetailsModal} title={'Детали ингредиента'}>
               <IngredientDetails />

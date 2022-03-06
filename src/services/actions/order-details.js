@@ -1,4 +1,6 @@
 import {placeOrder} from "../../utils/api";
+import {clearConstructor} from "./burger-constructor";
+import {clearQuantity} from "./burger-ingredients";
 
 export const PLACE_ORDER_REQUEST = 'PLACE_ORDER_REQUEST';
 export const PLACE_ORDER_SUCCESS = 'PLACE_ORDER_SUCCESS';
@@ -21,6 +23,8 @@ export function placeOrderAction(order) {
         dispatch({
           type: OPEN_ORDER_DETAILS_MODAL,
         });
+        dispatch(clearConstructor());
+        dispatch(clearQuantity());
       })
       .catch(() => {
         dispatch({
