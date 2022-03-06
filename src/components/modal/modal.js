@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import modalStyles from "./modal.module.css";
+import styles from "./modal.module.css";
 import {CloseIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import ModalOverlay from "../modal-overlay/modal-overlay";
 import {KEY} from "../../utils/constants";
@@ -23,18 +23,18 @@ export default function Modal({ children, title, onClose }) {
   }, [handleEscClose]);
 
   return ReactDOM.createPortal(
-    <div className={`${modalStyles.modal}`}>
-      <div className={modalStyles.container}>
+    <div className={`${styles.modal}`}>
+      <div className={styles.container}>
         {
           !!title && (
-            <div className={`${modalStyles.title} pt-10 ml-10 mr-10`}>
+            <div className={`${styles.title} pt-10 ml-10 mr-10`}>
               <h2 className={`text text_type_main-large`}>{title}</h2>
             </div>
           )
         }
         {children}
         <button
-          className={`${modalStyles.button} mr-10 mt-15`}
+          className={`${styles.button} mr-10 mt-15`}
           type="button"
           aria-label="Закрыть"
           onClick={onClose}

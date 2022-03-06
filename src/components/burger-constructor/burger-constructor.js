@@ -1,8 +1,8 @@
 import React from "react";
 import {Button, CurrencyIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import ConstructorList from "../constructor-list/constructor-list";
-import constructorStyles from "./burger-constructor.module.css"
-import {BUN_TYPE, DND_TYPES, INGREDIENT_TYPE} from "../../utils/constants";
+import styles from "./burger-constructor.module.css"
+import {BUN_TYPE, DND_TYPES, INGREDIENT_TYPE, PATH} from "../../utils/constants";
 import Bun from "../bun/bun";
 import {useDispatch, useSelector} from "react-redux";
 import {useDrop} from "react-dnd";
@@ -10,10 +10,14 @@ import {ADD_INGREDIENT, DELETE_INGREDIENT, SET_BUNS} from "../../services/action
 import {CHANGE_BUNS, DECREASE_INGREDIENT, INCREASE_INGREDIENT} from "../../services/actions/burger-ingredients";
 import {placeOrderAction} from "../../services/actions/order-details";
 import {v4 as uuid} from "uuid";
+import {useHistory} from "react-router-dom";
 
 
 export default function BurgerConstructor() {
   const dispatch = useDispatch();
+  const { isAuthenticated } = useSelector(state => state.access);
+
+  const history = useHistory();
 
   const [, dropTargetRef] = useDrop({
     accept: DND_TYPES.CARD_FROM_INGREDIENTS,
@@ -47,8 +51,14 @@ export default function BurgerConstructor() {
   }
 
   function handlePlaceOrderButtonClick() {
-    const order = [bun._id, ...constructorIngredients.map((ingredient) => ingredient._id), bun._id];
-    dispatch(placeOrderAction(order));
+    if (isAuthenticated) {
+      const order = [bun._id, ...constructorIngredients.map((ingredient) => ingredient._id), bun._id];
+      dispatch(placeOrderAction(order));
+    } else {
+      history.replace({
+        pathname: PATH.LOGIN,
+      })
+    }
   }
 
   function handleOnDrop(ingredient) {
@@ -81,15 +91,15 @@ export default function BurgerConstructor() {
   }
 
   return (
-    <section className={`${constructorStyles.section} mt-25`} ref={dropTargetRef}>
-      <ul className={`${constructorStyles.list}`}>
+    <section className={`${styles.section} mt-25`} ref={dropTargetRef}>
+      <ul className={`${styles.list}`}>
 
         {<Bun type={BUN_TYPE.TOP} />}
         <ConstructorList onDelete={handleDeleteClick} />
         {<Bun type={BUN_TYPE.BOTTOM} />}
 
       </ul>
-      <div className={`${constructorStyles.container} mt-10 mr-4`}>
+      <div className={`${styles.container} mt-10 mr-4`}>
         <span className="text text_type_digits-medium mr-10">{totalCost} <CurrencyIcon type="primary" /></span>
 
         <Button type="primary" size="large" onClick={handlePlaceOrderButtonClick} disabled={!bun}>

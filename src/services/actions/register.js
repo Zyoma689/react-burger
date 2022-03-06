@@ -1,4 +1,6 @@
 import * as api from "../../utils/api";
+import {setCookie} from "../../utils/utils";
+import {TOKEN} from "../../utils/constants";
 
 export const REGISTER_FORM_SUBMIT = 'REGISTER_FORM_SUBMIT';
 export const REGISTER_FORM_SUBMIT_SUCCESS = 'REGISTER_FORM_SUBMIT_SUCCESS';
@@ -13,8 +15,11 @@ export function register(form) {
       .then((data) => {
         dispatch({
           type: REGISTER_FORM_SUBMIT_SUCCESS,
+          user: data.user,
         });
-        console.log(data);
+
+        setCookie(TOKEN.ACCESS, data.accessToken);
+        localStorage.setItem(TOKEN.REFRESH, data.refreshToken);
       })
       .catch((err) => {
         dispatch({

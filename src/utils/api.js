@@ -1,4 +1,5 @@
-import {BASE_URL, ENDPOINT} from "./constants";
+import {BASE_URL, ENDPOINT, TOKEN} from "./constants";
+import {getCookie} from "./utils";
 
 const getResponse = (res) => {
   if (res.ok) {
@@ -7,7 +8,8 @@ const getResponse = (res) => {
     return res.json()
       .then((err) => {
         const error = new Error(err.message);
-        error.status = res.status;
+        error.status = err.status;
+        error.message = err.message;
         throw error;
       })
   }
@@ -27,7 +29,8 @@ export const placeOrder = ({ ingredients }) => {
   return fetch(`${BASE_URL}/orders`, {
     method: 'POST',
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": getCookie(TOKEN.ACCESS),
     },
     body: JSON.stringify({ ingredients }),
   })
@@ -76,4 +79,49 @@ export const resetPassword = ({ token, password }) => {
     body: JSON.stringify({ token, password }),
   })
     .then(getResponse)
-}
+};
+
+export const getUser = () => {
+  return fetch(BASE_URL + ENDPOINT.USER, {
+    method: 'GET',
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": getCookie(TOKEN.ACCESS),
+    },
+  })
+    .then(getResponse)
+};
+
+export const updateUser = ({ name, email, password}) => {
+  return fetch(BASE_URL + ENDPOINT.USER, {
+    method: 'PATCH',
+    headers: {
+      "Content-Type": "application/json",
+      "Authorization": getCookie(TOKEN.ACCESS),
+    },
+    body: JSON.stringify({ name, email, password }),
+  })
+    .then(getResponse)
+};
+
+export const refreshToken = () => {
+  return fetch(BASE_URL + ENDPOINT.REFRESH_TOKEN, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ token: localStorage.getItem(TOKEN.REFRESH) }),
+  })
+    .then(getResponse)
+};
+
+export const logout = () => {
+  return fetch(BASE_URL + ENDPOINT.LOGOUT, {
+    method: 'POST',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ token: localStorage.getItem(TOKEN.REFRESH) }),
+  })
+    .then(getResponse)
+};

@@ -25,6 +25,12 @@
   text-decoration: none;
 }
 
+.logout {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}
+
 .active {
   color: var(--text-primary-color);
 }
@@ -32,11 +38,4 @@
 .text {
   max-width: 320px;
   opacity: 0.4;
-}
-
-.buttons {
-  display: flex;
-  flex-direction: row;
-  justify-content: flex-end;
-  /*align-items: flex-end;*/
 }

@@ -13,3 +13,9 @@ export const ingredientPropTypes = PropTypes.shape({
   image_large: PropTypes.string,
   uuid: PropTypes.string,
 });
+
+export const routePropTypes = PropTypes.shape({
+  path: PropTypes.string.isRequired,
+  location: PropTypes.object.isRequired,
+  computedMatch: PropTypes.object.isRequired,
+});

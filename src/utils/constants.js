@@ -11,6 +11,9 @@ export const ENDPOINT = {
   REGISTER: '/auth/register',
   FORGOT_PASSWORD: '/password-reset',
   RESET_PASSWORD: '/password-reset/reset',
+  USER: '/auth/user',
+  REFRESH_TOKEN: '/auth/token',
+  LOGOUT: '/auth/logout',
 };
 
 export const INGREDIENT_TYPE = {
@@ -57,4 +60,26 @@ export const INPUT = {
     NEW_PASS: 'Введите новый пароль',
     CODE: 'Введите код из письма',
   },
+};
+
+export const TOKEN = {
+  REFRESH: 'refreshToken',
+  ACCESS: 'accessToken',
+};
+
+export const ERROR = {
+  JWT_EXPIRED: 'jwt expired',
+};
+
+export const PATH = {
+  REGISTER: '/register',
+  LOGIN: '/login',
+  HOME: '/',
+  FORGOT_PASSWORD: '/forgot-password',
+  RESET_PASSWORD: '/reset-password',
+  PROFILE: '/profile',
+  PROFILE_ORDERS: '/profile/orders',
+  ORDERS: '/orders',
+  INGREDIENT: '/ingredients/:id',
+  INGREDIENTS: '/ingredients',
 };

@@ -1,35 +1,10 @@
-// export const LOGIN_FORM_SET_VALUE = 'LOGIN_FORM_SET_VALUE';
-
 import * as api from "../../utils/api";
+import {TOKEN} from "../../utils/constants";
+import {setCookie} from "../../utils/utils";
 
 export const LOGIN_FORM_SUBMIT = 'LOGIN_FORM_SUBMIT';
 export const LOGIN_FORM_SUBMIT_SUCCESS = 'LOGIN_FORM_SUBMIT_SUCCESS';
 export const LOGIN_FORM_SUBMIT_FAILED = 'LOGIN_FORM_SUBMIT_FAILED';
-
-// export const setLoginFormValue = (field, value) => ({
-//   type: LOGIN_FORM_SET_VALUE,
-//   field,
-//   value
-// });
-
-// export const login = (form) => (dispatch) => {
-//   dispatch({
-//     type: LOGIN_FORM_SUBMIT,
-//   });
-//   login(form)
-//     .then((data) => {
-//       dispatch({
-//         type: LOGIN_FORM_SUBMIT_SUCCESS,
-//       });
-//       console.log(data);
-//     })
-//     .catch((err) => {
-//       dispatch({
-//         type: LOGIN_FORM_SUBMIT_FAILED,
-//       });
-//       console.log(err);
-//     })
-// };
 
 export function login(form) {
   return function (dispatch) {
@@ -40,8 +15,11 @@ export function login(form) {
       .then((data) => {
         dispatch({
           type: LOGIN_FORM_SUBMIT_SUCCESS,
+          user: data.user,
         });
-        console.log(data);
+
+        setCookie(TOKEN.ACCESS, data.accessToken);
+        localStorage.setItem(TOKEN.REFRESH, data.refreshToken);
       })
       .catch((err) => {
         dispatch({
