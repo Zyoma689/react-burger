@@ -1,29 +1,38 @@
-import React from "react";
-import AppHeader from "../app-header/app-header";
-import BurgerIngredients from "../burger-ingredients/burger-ingredients";
-import BurgerConstructor from "../burger-constructor/burger-constructor";
-import appStyles from "./app.module.css";
-import Modal from "../modal/modal";
-import OrderDetails from "../order-details/order-details";
-import IngredientDetails from "../ingredient-details/ingredient-details";
-import {INGREDIENT_TYPE} from "../../utils/constants";
+import React, {useMemo} from "react";
+import { Route, Switch, useHistory, useLocation } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
-import {CHANGE_BUNS, getIngredients, INCREASE_INGREDIENT} from "../../services/actions/burger-ingredients";
+
+import AppHeader from "../app-header/app-header";
 import {
-  CLOSE_INGREDIENT_DETAILS_MODAL,
-  OPEN_INGREDIENT_DETAILS_MODAL,
-  selectIngredient,
-  UNSELECT_INGREDIENT
-} from "../../services/actions/ingredient-details";
-import {DndProvider} from "react-dnd";
-import {HTML5Backend} from "react-dnd-html5-backend";
-import {ADD_INGREDIENT, SET_BUNS} from "../../services/actions/burger-constructor";
-import { v4 as uuid } from "uuid";
+  HomePage,
+  LoginPage,
+  RegisterPage,
+  ForgotPasswordPage,
+  ResetPasswordPage,
+  ProfilePage,
+  IngredientDetailsPage,
+  NotFoundPage,
+} from "../../pages";
+import Modal from "../modal/modal";
+import IngredientDetails from "../ingredient-details/ingredient-details";
+import OrderDetails from "../order-details/order-details";
+import ProtectedRoute from "../protected-route/protected-route";
+
+import { getIngredients } from "../../services/actions/burger-ingredients";
+import { CLOSE_INGREDIENT_DETAILS_MODAL, UNSELECT_INGREDIENT } from "../../services/actions/ingredient-details";
 import {CLOSE_ORDER_DETAILS_MODAL} from "../../services/actions/order-details";
+import {getUser} from "../../services/actions/profile";
+
+import {PATH} from "../../utils/constants";
 
 
 function App() {
   const dispatch = useDispatch();
+
+  const location = useLocation();
+  const history = useHistory();
+
+  const modal = location.state && location.state.fromCardClick;
 
   const ingredientDetailsModal = useSelector(state => state.ingredientDetails.modalIsOpen);
   const orderDetailsModal = useSelector(state => state.orderDetails.modalIsOpen);
@@ -31,6 +40,7 @@ function App() {
   function handleCloseIngredientDetailsModal() {
     dispatch({ type: CLOSE_INGREDIENT_DETAILS_MODAL });
     dispatch({ type: UNSELECT_INGREDIENT });
+    history.replace({ pathname: PATH.HOME });
   }
 
   function handleCloseOrderDetailsModal() {
@@ -38,23 +48,56 @@ function App() {
   }
 
   React.useEffect(() => {
-    dispatch(getIngredients())
+    dispatch(getIngredients());
+    dispatch(getUser());
   }, [dispatch]);
 
   return (
     <>
       <AppHeader/>
-      <main className={appStyles.main}>
-        <DndProvider backend={HTML5Backend}>
-          <BurgerIngredients />
-          <BurgerConstructor />
-        </DndProvider>
-      </main>
+
+      <Switch location={ingredientDetailsModal ? modal : location}>
+        <Route exact path={PATH.HOME}>
+          <HomePage />
+        </Route>
+
+        <Route exact path={PATH.LOGIN}>
+          <LoginPage />
+        </Route>
+
+        <Route exact path={PATH.REGISTER}>
+          <RegisterPage />
+        </Route>
+
+        <Route exact path={PATH.FORGOT_PASSWORD}>
+          <ForgotPasswordPage />
+        </Route>
+
+        <Route exact path={PATH.RESET_PASSWORD}>
+          <ResetPasswordPage />
+        </Route>
+
+        <ProtectedRoute path={PATH.PROFILE}>
+          <ProfilePage />
+        </ProtectedRoute>
+
+        <Route exact path={PATH.INGREDIENT}>
+          <IngredientDetailsPage />
+        </Route>
+
+        <Route>
+          <NotFoundPage />
+        </Route>
+      </Switch>
+
       {
         ingredientDetailsModal && (
-          <Modal onClose={handleCloseIngredientDetailsModal} title={'Детали ингредиента'}>
-            <IngredientDetails />
-          </Modal>
+          <Route path={PATH.INGREDIENT}>
+            <Modal onClose={handleCloseIngredientDetailsModal} title={'Детали ингредиента'}>
+              <IngredientDetails />
+            </Modal>
+          </Route>
+
         )
       }
       {

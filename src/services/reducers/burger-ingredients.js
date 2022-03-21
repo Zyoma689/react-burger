@@ -4,7 +4,7 @@ import {
   GET_INGREDIENTS_FAILED,
   CHANGE_BUNS,
   INCREASE_INGREDIENT,
-  DECREASE_INGREDIENT, CHANGE_TAB,
+  DECREASE_INGREDIENT, CHANGE_TAB, CLEAR_QUANTITY,
 } from "../actions/burger-ingredients";
 import {INGREDIENT_TYPE, INGREDIENTS_TITLES} from "../../utils/constants";
 
@@ -69,6 +69,12 @@ export const burgerIngredientsReducer = (state = initialState, action) => {
         ingredients: [...state.ingredients].map(ingredient => {
           return ingredient._id === action._id ? { ...ingredient, quantity: --ingredient.quantity } : ingredient;
         })
+      }
+    }
+    case CLEAR_QUANTITY: {
+      return {
+        ...state,
+        ingredients: [...state.ingredients].map(ingredient => ({ ...ingredient, quantity: 0 })),
       }
     }
     case CHANGE_TAB: {

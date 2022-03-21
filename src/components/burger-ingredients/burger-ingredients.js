@@ -1,9 +1,8 @@
 import React from "react";
 import { INGREDIENTS_TITLES, INGREDIENT_TYPE } from "../../utils/constants";
 import IngredientsCardList from "../ingredients-card-list/ingredients-card-list";
-import burgerIngredientsStyles from "./burger-ingredients.module.css"
+import styles from "./burger-ingredients.module.css"
 import IngredientsTabs from "../ingredients-tabs/ingredients-tabs";
-import PropTypes from "prop-types";
 import { SCROLL_PARAMS } from "../../utils/constants";
 import {useDispatch, useSelector} from "react-redux";
 import {CHANGE_TAB} from "../../services/actions/burger-ingredients";
@@ -78,7 +77,7 @@ export default function BurgerIngredients() {
     <section className="mt-10">
       <h1 className="text text_type_main-large mb-5">Соберите бургер</h1>
       <IngredientsTabs onClick={handleTabClick}/>
-      <div className={`${burgerIngredientsStyles.container} custom-scroll mt-10 pr-2`} onScroll={handleScroll}>
+      <div className={`${styles.container} custom-scroll mt-10 pr-2`} onScroll={handleScroll}>
         <p className="text text_type_main-medium" ref={bunRef}>{INGREDIENTS_TITLES.BUN}</p>
         <IngredientsCardList ingredients={bun} onSelect={handleIngredientCardClick}/>
         <p className="text text_type_main-medium" ref={sauceRef}>{INGREDIENTS_TITLES.SAUCE}</p>

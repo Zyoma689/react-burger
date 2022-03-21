@@ -1,10 +1,10 @@
 import React from "react";
-import cardStyles from "./custom-constructor-element.module.css";
+import styles from "./custom-constructor-element.module.css";
 import {BUN_TYPE} from "../../utils/constants";
 import PropTypes from "prop-types";
 
 export default function CustomConstructorElement({ type, children }) {
-  const classNames = `${cardStyles.card} ${type ? type === BUN_TYPE.TOP ? cardStyles.card_top : cardStyles.card_bottom : ''}`;
+  const classNames = `${styles.card} ${type ? type === BUN_TYPE.TOP ? styles.card_top : styles.card_bottom : ''}`;
 
   return (
     <div className={classNames}>

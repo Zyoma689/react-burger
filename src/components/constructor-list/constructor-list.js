@@ -1,5 +1,5 @@
 import React from "react";
-import listStyles from "./constructor-list.module.css"
+import styles from "./constructor-list.module.css"
 import PropTypes from "prop-types";
 import {useSelector} from "react-redux";
 import ConstructorCard from "../constructor-card/constructor-card";
@@ -8,7 +8,7 @@ export default function ConstructorList({ onDelete }) {
   const { ingredients } = useSelector(state => state.burgerConstructor);
 
   return (
-    <div className={`${listStyles.container} custom-scroll pr-2`}>
+    <div className={`${styles.container} custom-scroll pr-2`}>
       {
         ingredients.map((ingredient, index) => {
           const { uuid } = ingredient;

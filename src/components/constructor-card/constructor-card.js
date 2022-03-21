@@ -1,5 +1,5 @@
 import React from "react";
-import cardStyles from "./constructor-card.module.css";
+import styles from "./constructor-card.module.css";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDrag, useDrop} from "react-dnd";
 import {useDispatch} from "react-redux";
@@ -59,7 +59,7 @@ export default function ConstructorCard({ ingredient, index, onDelete }) {
   dragRef(dropRef(ref));
 
   return (
-    <li className={`${cardStyles.item} ${isDragging && cardStyles.item_drag}`} ref={ref}>
+    <li className={`${styles.item} ${isDragging && styles.item_drag}`} ref={ref}>
       <DragIcon type={"primary"} />
       <ConstructorElement text={name} thumbnail={image} price={price} handleClose={() => onDelete(uuid, _id)}/>
     </li>
