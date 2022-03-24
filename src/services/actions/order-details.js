@@ -33,3 +33,15 @@ export function placeOrderAction(order) {
       })
   }
 }
+
+export function openOrderDetailsModal() {
+  return {
+    type: OPEN_ORDER_DETAILS_MODAL,
+  }
+}
+
+export function closeOrderDetailsModal() {
+  return {
+    type: CLOSE_ORDER_DETAILS_MODAL,
+  }
+}

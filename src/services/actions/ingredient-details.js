@@ -10,3 +10,21 @@ export function selectIngredient(ingredient) {
     selectedIngredient: ingredient,
   };
 }
+
+export function unselectIngredient() {
+  return {
+    type: UNSELECT_INGREDIENT,
+  };
+}
+
+export function openIngredientDetailsModal() {
+  return {
+    type: OPEN_INGREDIENT_DETAILS_MODAL,
+  }
+}
+
+export function closeIngredientDetailsModal() {
+  return {
+    type: CLOSE_INGREDIENT_DETAILS_MODAL,
+  }
+}
