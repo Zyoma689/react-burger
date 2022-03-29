@@ -32,8 +32,36 @@ export function getIngredients() {
   }
 }
 
+export function changeBuns(id) {
+  return {
+    type: CHANGE_BUNS,
+    _id: id,
+  }
+}
+
+export function increaseIngredient(id) {
+  return {
+    type: INCREASE_INGREDIENT,
+    _id: id,
+  }
+}
+
+export function decreaseIngredient(id) {
+  return {
+    type: DECREASE_INGREDIENT,
+    _id: id,
+  }
+}
+
 export function clearQuantity() {
   return {
     type: CLEAR_QUANTITY,
+  }
+}
+
+export function changeTab(tab) {
+  return {
+    type: CHANGE_TAB,
+    tab: tab,
   }
 }
