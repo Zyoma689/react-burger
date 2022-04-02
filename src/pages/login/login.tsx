@@ -1,8 +1,8 @@
 import React, {ChangeEvent, FC, FormEvent} from "react";
 import {Button, Input, PasswordInput} from '@ya.praktikum/react-developer-burger-ui-components';
 import {INPUT} from "../../utils/constants";
-import {useDispatch, useSelector} from "react-redux";
-import {login} from "../../services/actions/login";
+import {useDispatch, useSelector} from "../../services/hooks";
+import {loginThunk} from "../../services/actions/login";
 import {Link} from "react-router-dom";
 import styles from "./login.module.css"
 import { Redirect, useLocation } from "react-router-dom"
@@ -29,7 +29,7 @@ export const LoginPage: FC = () => {
 
   function onSubmit(evt: FormEvent) {
     evt.preventDefault();
-    dispatch(login(formValue));
+    dispatch(loginThunk(formValue));
   }
 
   if (isAuthenticated) {

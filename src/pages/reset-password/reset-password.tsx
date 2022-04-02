@@ -1,5 +1,5 @@
 import React, {ChangeEvent, FC, FormEvent} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks";
 import styles from "../login/login.module.css";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {INPUT, PATH} from "../../utils/constants";
@@ -85,4 +85,4 @@ export const ResetPasswordPage: FC = () => {
       </p>
     </div>
   );
-}
+};

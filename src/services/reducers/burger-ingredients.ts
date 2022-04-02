@@ -4,18 +4,31 @@ import {
   GET_INGREDIENTS_FAILED,
   CHANGE_BUNS,
   INCREASE_INGREDIENT,
-  DECREASE_INGREDIENT, CHANGE_TAB, CLEAR_QUANTITY,
-} from "../actions/burger-ingredients";
+  DECREASE_INGREDIENT,
+  CHANGE_TAB,
+  CLEAR_QUANTITY,
+} from "../constants";
 import {INGREDIENT_TYPE, INGREDIENTS_TITLES} from "../../utils/constants";
+import {
+  TIngredient,
+} from "../../types";
+import {TBurgerIngredientsActions} from "../actions/burger-ingredients";
 
-const initialState = {
+type TBurgerIngredientsState = {
+  ingredients: TIngredient[];
+  ingredientsRequest: boolean;
+  ingredientsFailed: boolean;
+  tab: string;
+}
+
+const initialState: TBurgerIngredientsState = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,
   tab: INGREDIENTS_TITLES.BUN,
 };
 
-export const burgerIngredientsReducer = (state = initialState, action) => {
+export const burgerIngredientsReducer = (state = initialState, action: TBurgerIngredientsActions): TBurgerIngredientsState => {
   switch (action.type) {
     case GET_INGREDIENTS_REQUEST: {
       return {

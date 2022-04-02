@@ -1,6 +1,6 @@
 import React, {FC} from "react";
 import { Route, Switch, useHistory, useLocation } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector, useDispatch } from "../../services/hooks";
 
 import { AppHeader } from "../app-header/app-header";
 import {
@@ -18,10 +18,10 @@ import {IngredientDetails} from "../ingredient-details/ingredient-details";
 import {OrderDetails} from "../order-details/order-details";
 import {ProtectedRoute} from "../protected-route/protected-route";
 
-import { getIngredients } from "../../services/actions/burger-ingredients";
-import { closeIngredientDetailsModal, unselectIngredient } from "../../services/actions/ingredient-details";
+import { getIngredientsThunk } from "../../services/actions/burger-ingredients";
+import { closeIngredientDetailsModalAction, unselectIngredientAction } from "../../services/actions/ingredient-details";
 import { closeOrderDetailsModal } from "../../services/actions/order-details";
-import {getUser} from "../../services/actions/profile";
+import {getUserThunk} from "../../services/actions/profile";
 import {PATH} from "../../utils/constants";
 import {TLocationState} from "../../types";
 
@@ -37,8 +37,8 @@ export const App: FC = () => {
   const orderDetailsModal = useSelector((state: any) => state.orderDetails.modalIsOpen);
 
   function handleCloseIngredientDetailsModal() {
-    dispatch(closeIngredientDetailsModal());
-    dispatch(unselectIngredient());
+    dispatch(closeIngredientDetailsModalAction());
+    dispatch(unselectIngredientAction());
     history.replace({ pathname: PATH.HOME });
   }
 
@@ -47,8 +47,8 @@ export const App: FC = () => {
   }
 
   React.useEffect(() => {
-    dispatch(getIngredients());
-    dispatch(getUser());
+    dispatch(getIngredientsThunk());
+    dispatch(getUserThunk());
   }, [dispatch]);
 
   return (

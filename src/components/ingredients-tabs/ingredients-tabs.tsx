@@ -2,7 +2,7 @@ import React, {FC} from "react";
 import { Tab } from "@ya.praktikum/react-developer-burger-ui-components";
 import styles from "./ingredients-tabs.module.css";
 import { INGREDIENTS_TITLES } from "../../utils/constants";
-import {useSelector} from "react-redux";
+import {useSelector} from "../../services/hooks";
 import {TIngredientsTabs} from "../../types";
 
 

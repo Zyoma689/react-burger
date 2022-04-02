@@ -2,25 +2,26 @@ import {
   REGISTER_FORM_SUBMIT,
   REGISTER_FORM_SUBMIT_SUCCESS,
   REGISTER_FORM_SUBMIT_FAILED,
-} from "../actions/register";
+} from "../constants";
 
 import {
   LOGIN_FORM_SUBMIT,
   LOGIN_FORM_SUBMIT_FAILED,
   LOGIN_FORM_SUBMIT_SUCCESS
-} from "../actions/login";
+} from "../constants";
 
 import {
   FORGOT_PASSWORD_FORM_SUBMIT,
   FORGOT_PASSWORD_FORM_SUBMIT_FAILED,
-  FORGOT_PASSWORD_FORM_SUBMIT_SUCCESS, FORGOT_PASSWORD_RESET
-} from "../actions/forgot-password";
+  FORGOT_PASSWORD_FORM_SUBMIT_SUCCESS,
+  FORGOT_PASSWORD_RESET
+} from "../constants";
 
 import {
   RESET_PASSWORD_FORM_SUBMIT,
   RESET_PASSWORD_FORM_SUBMIT_FAILED,
   RESET_PASSWORD_FORM_SUBMIT_SUCCESS
-} from "../actions/reset-password";
+} from "../constants";
 import {
   EDIT_PROFILE_FORM_SUBMIT,
   EDIT_PROFILE_FORM_SUBMIT_FAILED,
@@ -30,7 +31,44 @@ import {
   GET_USER_SUCCESS, LOGOUT_FAILED, LOGOUT_REQUEST, LOGOUT_SUCCESS, REFRESH_TOKEN_FAILED,
   REFRESH_TOKEN_REQUEST,
   REFRESH_TOKEN_SUCCESS
-} from "../actions/profile";
+} from "../constants";
+import {TProfileForm} from "../../types";
+import {TRegisterActions} from "../actions/register";
+import {TLoginActions} from "../actions/login";
+import {TForgotPasswordActions} from "../actions/forgot-password";
+import {TResetPasswordActions} from "../actions/reset-password";
+import {TProfileActions} from "../actions/profile";
+
+type TAccessState = {
+  isAuthenticated: boolean;
+  user: TProfileForm;
+  registerRequest: boolean;
+  registerFailed: boolean;
+  loginRequest: boolean;
+  loginFailed: boolean;
+  forgotPasswordRequest: boolean;
+  forgotPasswordSuccess: boolean;
+  forgotPasswordFailed: boolean;
+  resetPasswordRequest: boolean;
+  resetPasswordSuccess: boolean;
+  resetPasswordFailed: boolean;
+  editProfileRequest: boolean;
+  editProfileFailed: boolean;
+  getUserRequest: boolean;
+  getUserFailed: boolean;
+  refreshTokenRequest: boolean;
+  refreshTokenFailed: boolean;
+  logoutRequest: boolean;
+  logoutFailed: boolean;
+}
+
+type TAccessActions =
+  | TRegisterActions
+  | TLoginActions
+  | TForgotPasswordActions
+  | TResetPasswordActions
+  | TProfileActions
+
 
 const initialState = {
   isAuthenticated: false,
@@ -68,7 +106,7 @@ const initialState = {
   logoutFailed: false,
 };
 
-export const accessReducer = (state = initialState, action) => {
+export const accessReducer = (state = initialState, action: TAccessActions): TAccessState => {
   switch (action.type) {
     case REGISTER_FORM_SUBMIT: {
       return {

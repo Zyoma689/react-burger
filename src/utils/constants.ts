@@ -1,9 +1,21 @@
-import {TBunType, TIngredientsTitles, TInput, TString} from "../types";
+import {
+  TBunType,
+  TIngredientsTitle,
+  TIngredientTypeBun,
+  TIngredientTypeMain,
+  TIngredientTypeSauce,
+  TInput,
+  TString
+} from "../types";
 
-export const INGREDIENTS_TITLES: TIngredientsTitles = {
-  BUN: 'Булки',
-  SAUCE: 'Соусы',
-  MAIN: 'Начинки',
+export const BUN: TIngredientTypeBun = 'Булки';
+export const SAUCE: TIngredientTypeSauce = 'Соусы';
+export const MAIN: TIngredientTypeMain = 'Начинки';
+
+export const INGREDIENTS_TITLES = {
+  BUN,
+  SAUCE,
+  MAIN,
 };
 
 export const BASE_URL: string = 'https://norma.nomoreparties.space/api';

@@ -2,8 +2,8 @@ import React, {ChangeEvent, FC, FormEvent, SyntheticEvent, useMemo} from "react"
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {INPUT} from "../../utils/constants";
 import styles from "./profile-edit.module.css";
-import {useDispatch, useSelector} from "react-redux";
-import {editProfile} from "../../services/actions/profile";
+import {useDispatch, useSelector} from "../../services/hooks";
+import {editProfileThunk} from "../../services/actions/profile";
 import {TProfileForm} from "../../types";
 
 export const ProfileEdit: FC = () => {
@@ -37,7 +37,7 @@ export const ProfileEdit: FC = () => {
 
   function onSubmit(evt: FormEvent) {
     evt.preventDefault();
-    dispatch(editProfile(formValue));
+    dispatch(editProfileThunk(formValue));
   }
 
   function onCancel(evt: SyntheticEvent) {

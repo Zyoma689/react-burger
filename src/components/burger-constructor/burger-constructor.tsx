@@ -4,15 +4,15 @@ import {ConstructorList} from "../constructor-list/constructor-list";
 import styles from "./burger-constructor.module.css"
 import {BUN_TYPE, DND_TYPES, INGREDIENT_TYPE, PATH} from "../../utils/constants";
 import {Bun} from "../bun/bun";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks";
 import {useDrop} from "react-dnd";
-import { addIngredient, deleteIngredient, setBuns } from "../../services/actions/burger-constructor";
-import { changeBuns, decreaseIngredient, increaseIngredient } from "../../services/actions/burger-ingredients";
-import {placeOrderAction} from "../../services/actions/order-details";
+import { addIngredientAction, deleteIngredientAction, setBunsAction } from "../../services/actions/burger-constructor";
+import { changeBunsAction, decreaseIngredientAction, increaseIngredientAction } from "../../services/actions/burger-ingredients";
+import {placeOrderThunk} from "../../services/actions/order-details";
 import {v4 as uuid} from "uuid";
 import {useHistory} from "react-router-dom";
 import {Preloader} from "../preloader/preloader";
-import {TIngredient} from "../../types";
+import {TConstructorIngredient, TIngredient} from "../../types";
 
 
 export const BurgerConstructor: FC = () => {
@@ -43,14 +43,14 @@ export const BurgerConstructor: FC = () => {
 
 
   function handleDeleteClick(uuid: string, _id: string) {
-    dispatch(deleteIngredient(uuid));
-    dispatch(decreaseIngredient(_id));
+    dispatch(deleteIngredientAction(uuid));
+    dispatch(decreaseIngredientAction(_id));
   }
 
   function handlePlaceOrderButtonClick() {
     if (isAuthenticated) {
-      const order = [bun._id, ...constructorIngredients.map((ingredient: TIngredient) => ingredient._id), bun._id];
-      dispatch(placeOrderAction(order));
+      const order = [bun._id, ...constructorIngredients.map((ingredient: TConstructorIngredient) => ingredient._id), bun._id];
+      dispatch(placeOrderThunk(order));
     } else {
       history.replace({
         pathname: PATH.LOGIN,
@@ -63,13 +63,13 @@ export const BurgerConstructor: FC = () => {
 
     switch (type) {
       case INGREDIENT_TYPE.BUN: {
-        dispatch(changeBuns(_id));
-        dispatch(setBuns(ingredient));
+        dispatch(changeBunsAction(_id));
+        dispatch(setBunsAction(ingredient));
         break;
       }
       default: {
-        dispatch(increaseIngredient(_id));
-        dispatch(addIngredient({ ...ingredient, uuid: uuid() }));
+        dispatch(increaseIngredientAction(_id));
+        dispatch(addIngredientAction({ ...ingredient, uuid: uuid() }));
         break;
       }
     }

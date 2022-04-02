@@ -1,8 +1,8 @@
 import React, {FC} from "react";
 import styles from "./ingredient-details.module.css";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch, useSelector} from "../../services/hooks";
 import { useParams } from 'react-router-dom'
-import {selectIngredient} from "../../services/actions/ingredient-details";
+import {selectIngredientAction} from "../../services/actions/ingredient-details";
 import {TIngredient} from "../../types";
 
 export const IngredientDetails: FC = () => {
@@ -15,7 +15,7 @@ export const IngredientDetails: FC = () => {
   React.useEffect(() => {
     if (!selectedIngredient && id && ingredients) {
       const ingredient = ingredients.find((ingredient: TIngredient) => ingredient._id === id);
-      dispatch(selectIngredient(ingredient));
+      dispatch(selectIngredientAction(ingredient));
     }
   }, [selectedIngredient, id, ingredients, dispatch]);
 

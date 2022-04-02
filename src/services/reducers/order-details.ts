@@ -4,16 +4,24 @@ import {
   PLACE_ORDER_FAILED,
   OPEN_ORDER_DETAILS_MODAL,
   CLOSE_ORDER_DETAILS_MODAL,
-} from "../actions/order-details";
+} from "../constants";
+import {TOrderDetailsActions} from "../actions/order-details";
 
-const initialState = {
+type TOrderDetailsState = {
+  orderId: string;
+  placeOrderRequest: boolean;
+  placeOrderFailed: boolean;
+  modalIsOpen: boolean;
+}
+
+const initialState: TOrderDetailsState = {
   orderId: '',
   placeOrderRequest: false,
   placeOrderFailed: false,
   modalIsOpen: false,
 };
 
-export const orderDetailsReducer = (state = initialState, action) => {
+export const orderDetailsReducer = (state = initialState, action: TOrderDetailsActions): TOrderDetailsState => {
   switch (action.type) {
     case PLACE_ORDER_REQUEST: {
       return {

@@ -2,8 +2,8 @@ import React, {FC} from "react";
 import styles from "./constructor-card.module.css";
 import {ConstructorElement, DragIcon} from "@ya.praktikum/react-developer-burger-ui-components";
 import {useDrag, useDrop, XYCoord} from "react-dnd";
-import {useDispatch} from "react-redux";
-import {moveIngredient} from "../../services/actions/burger-constructor";
+import {useDispatch} from "../../services/hooks";
+import {moveIngredientAction} from "../../services/actions/burger-constructor";
 import {DND_TYPES} from "../../utils/constants";
 import {TConstructorCard, TConstructorIngredient} from "../../types";
 
@@ -38,7 +38,7 @@ export const ConstructorCard: FC<TConstructorCard> = ({ ingredient, index, onDel
 
       const clientOffset: XYCoord | null = monitor.getClientOffset();
 
-      if (clientOffset && ref && ref.current) {
+      if (clientOffset && ref && ref.current && dragIndex) {
         const hoverBoundingRect = ref.current.getBoundingClientRect();
         const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
         const hoverClientY = clientOffset.y - hoverBoundingRect.top;
@@ -49,9 +49,9 @@ export const ConstructorCard: FC<TConstructorCard> = ({ ingredient, index, onDel
         if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
           return;
         }
-      }
 
-      dispatch(moveIngredient(dragIndex, hoverIndex));
+        dispatch(moveIngredientAction(dragIndex, hoverIndex));
+      }
 
       item.index = hoverIndex;
     }

@@ -1,9 +1,9 @@
 import React, {FC} from "react";
 import {PATH} from "../../utils/constants";
 import { NavLink, Switch, Route, useRouteMatch } from "react-router-dom";
-import {useDispatch} from "react-redux";
+import {useDispatch} from "../../services/hooks";
 import styles from "./profile.module.css"
-import {logout} from "../../services/actions/profile";
+import {logoutThunk} from "../../services/actions/profile";
 import {ProfileEdit} from "../";
 import {ProfileOrders} from "..";
 
@@ -13,7 +13,7 @@ export const ProfilePage: FC = () => {
   const { path } = useRouteMatch();
 
   function onLogout() {
-    dispatch(logout());
+    dispatch(logoutThunk());
   }
 
   return (

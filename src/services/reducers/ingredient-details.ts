@@ -3,14 +3,21 @@ import {
   UNSELECT_INGREDIENT,
   OPEN_INGREDIENT_DETAILS_MODAL,
   CLOSE_INGREDIENT_DETAILS_MODAL,
-} from "../actions/ingredient-details";
+} from "../constants";
+import {TIngredient} from "../../types";
+import {TIngredientDetailsAction} from "../actions/ingredient-details";
+
+type TIngredientDetailsState = {
+  selectedIngredient: TIngredient | null;
+  modalIsOpen: boolean;
+}
 
 const initialState = {
   selectedIngredient: null,
   modalIsOpen: false,
 };
 
-export const ingredientDetailsReducer = (state = initialState, action) => {
+export const ingredientDetailsReducer = (state = initialState, action: TIngredientDetailsAction): TIngredientDetailsState => {
   switch (action.type) {
     case SELECT_INGREDIENT: {
       return {

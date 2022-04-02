@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./order-details.module.css";
 import image from "../../images/done.svg";
-import {useSelector} from "react-redux";
+import {useSelector} from "../../services/hooks";
 
 
 export const OrderDetails = () => {
