@@ -29,7 +29,7 @@ export const ConstructorCard: FC<TConstructorCard> = ({ ingredient, index, onDel
       if (!ref.current) {
         return;
       }
-      const dragIndex = item.index;
+      const dragIndex = item.index!;
       const hoverIndex = index;
 
       if (dragIndex === hoverIndex) {
@@ -38,7 +38,7 @@ export const ConstructorCard: FC<TConstructorCard> = ({ ingredient, index, onDel
 
       const clientOffset: XYCoord | null = monitor.getClientOffset();
 
-      if (clientOffset && ref && ref.current && dragIndex) {
+      if (clientOffset && ref && ref.current) {
         const hoverBoundingRect = ref.current.getBoundingClientRect();
         const hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
         const hoverClientY = clientOffset.y - hoverBoundingRect.top;
@@ -49,9 +49,8 @@ export const ConstructorCard: FC<TConstructorCard> = ({ ingredient, index, onDel
         if (dragIndex > hoverIndex && hoverClientY > hoverMiddleY) {
           return;
         }
-
-        dispatch(moveIngredientAction(dragIndex, hoverIndex));
       }
+      dispatch(moveIngredientAction(dragIndex, hoverIndex));
 
       item.index = hoverIndex;
     }

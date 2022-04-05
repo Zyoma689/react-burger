@@ -17,8 +17,8 @@ import {TConstructorIngredient, TIngredient} from "../../types";
 
 export const BurgerConstructor: FC = () => {
   const dispatch = useDispatch();
-  const { isAuthenticated } = useSelector((state: any) => state.access);
-  const { placeOrderRequest } = useSelector((state: any) => state.orderDetails);
+  const { isAuthenticated } = useSelector((state) => state.access);
+  const { placeOrderRequest } = useSelector((state) => state.orderDetails);
 
   const history = useHistory();
 

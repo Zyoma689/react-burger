@@ -12,6 +12,7 @@ import {
   ProfilePage,
   IngredientDetailsPage,
   NotFoundPage,
+  FeedPage,
 } from "../../pages";
 import {Modal} from "../modal/modal";
 import {IngredientDetails} from "../ingredient-details/ingredient-details";
@@ -34,7 +35,7 @@ export const App: FC = () => {
   const modal = location.state && location.state.fromCardClick;
 
   const ingredientDetailsModal = useSelector((state: any) => state.ingredientDetails.modalIsOpen);
-  const orderDetailsModal = useSelector((state: any) => state.orderDetails.modalIsOpen);
+  const orderDetailsModal = useSelector((state) => state.orderDetails.modalIsOpen);
 
   function handleCloseIngredientDetailsModal() {
     dispatch(closeIngredientDetailsModalAction());
@@ -58,6 +59,10 @@ export const App: FC = () => {
       <Switch location={ingredientDetailsModal ? modal : location}>
         <Route exact path={PATH.HOME}>
           <HomePage />
+        </Route>
+
+        <Route exact path={PATH.FEED}>
+          <FeedPage />
         </Route>
 
         <Route exact path={PATH.LOGIN}>

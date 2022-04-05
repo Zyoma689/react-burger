@@ -33,7 +33,8 @@ export const getIngredientsRequest = () => {
     .then(getResponse)
 };
 
-export const placeOrder = ({ ingredients }: { ingredients: TConstructorIngredient[]}) => {
+export const placeOrder = (ingredients: string[]) => {
+  console.log(ingredients);
   return fetch(BASE_URL + ENDPOINT.PLACE_ORDER, {
     method: 'POST',
     headers: {

@@ -8,6 +8,7 @@ import { ProfileEdit } from "./profile-edit/profile-edit";
 import { ProfileOrders } from "./profile-orders/profile-orders";
 import { IngredientDetailsPage } from "./ingredient-details/ingredient-detais";
 import { NotFoundPage } from "./not-found/not-found";
+import { FeedPage } from "./feed/feed";
 
 export {
   HomePage,
@@ -20,4 +21,5 @@ export {
   ProfileOrders,
   IngredientDetailsPage,
   NotFoundPage,
+  FeedPage,
 };
