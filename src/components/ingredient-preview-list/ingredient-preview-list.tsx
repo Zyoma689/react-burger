@@ -15,7 +15,11 @@ export const IngredientPreviewList:FC<TIngredientPreviewList> = ({ ingredients }
   return (
     <ul className={styles.list}>
       {
-        listToRender.map((ingredient, index) => (<IngredientPreviewIcon ingredient={ingredient} index={index} key={index} rest={rest}/>))
+        listToRender.map((ingredient, index) => (
+          <li key={index}>
+            <IngredientPreviewIcon ingredient={ingredient} index={index} rest={rest} withCascade={true}/>
+          </li>
+        ))
       }
     </ul>
   );

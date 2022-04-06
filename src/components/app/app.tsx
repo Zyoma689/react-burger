@@ -25,6 +25,7 @@ import { closeOrderDetailsModal } from "../../services/actions/order-details";
 import {getUserThunk} from "../../services/actions/profile";
 import {PATH} from "../../utils/constants";
 import {TLocationState} from "../../types";
+import {OrderInfoPage} from "../../pages/order-info-page/order-info-page";
 
 export const App: FC = () => {
   const dispatch = useDispatch();
@@ -58,7 +59,8 @@ export const App: FC = () => {
 
       <Switch location={ingredientDetailsModal ? modal : location}>
         <Route exact path={PATH.HOME}>
-          <HomePage />
+          {/*<HomePage />*/}
+          <OrderInfoPage/>
         </Route>
 
         <Route exact path={PATH.FEED}>

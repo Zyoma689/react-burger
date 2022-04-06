@@ -9,10 +9,11 @@
   border-radius: 100px;
   z-index: -1;
   overflow: hidden;
-  margin-right: -16px;
+  /*margin-right: -16px;*/
 }
 
 .container::after {
+  display: block;
   position: absolute;
   top: 2px;
   right: 2px;
