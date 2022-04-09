@@ -12,7 +12,7 @@ import {TLocationState, TLoginForm} from "../../types";
 export const LoginPage: FC = () => {
   const dispatch = useDispatch();
 
-  const { isAuthenticated, loginFailed } = useSelector((state: any) => state.access);
+  const { isAuthenticated, loginFailed } = useSelector((state) => state.access);
   const { state } = useLocation<TLocationState>();
 
   const [ formValue, setFormValue ] = React.useState<TLoginForm>({

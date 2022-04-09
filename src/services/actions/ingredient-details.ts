@@ -23,7 +23,7 @@ export interface ICloseIngredientDetailsModalAction {
   readonly type: typeof CLOSE_INGREDIENT_DETAILS_MODAL;
 }
 
-export type TIngredientDetailsAction =
+export type TIngredientDetailsActions =
   | ISelectIngredientAction
   | IUnselectIngredientAction
   | IOpenIngredientDetailsModalAction

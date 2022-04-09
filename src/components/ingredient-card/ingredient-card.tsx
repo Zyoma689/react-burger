@@ -11,6 +11,7 @@ export const IngredientCard: FC<TIngredientCard> = ({ ingredient, onSelect }) =>
   const location = useLocation();
 
   const { image, price, name, quantity, _id } = ingredient;
+
   const [, dragRef] = useDrag({
     type: DND_TYPES.CARD_FROM_INGREDIENTS,
     item: ingredient,
@@ -19,7 +20,7 @@ export const IngredientCard: FC<TIngredientCard> = ({ ingredient, onSelect }) =>
   return (
     <li className={styles.card} onClick={() => onSelect(ingredient)} ref={dragRef}>
       <Link
-        to={{ pathname: `/ingredients/${_id}`, state: { fromCardClick: location } }}
+        to={{ pathname: `/ingredients/${_id}`, state: { ingredientCard: location } }}
         className={styles.link}
       >
         <figure className={styles.card_container}>

@@ -27,7 +27,6 @@ export type TForgotPasswordActions =
   | IForgotPasswordAction
   | IForgotPasswordSuccessAction
   | IForgotPasswordFailedAction
-  | IForgotPasswordResetAction;
 
 export const forgotPasswordAction = (): IForgotPasswordAction => ({
   type: FORGOT_PASSWORD_FORM_SUBMIT,
@@ -39,10 +38,6 @@ export const forgotPasswordSuccessAction = (): IForgotPasswordSuccessAction => (
 
 export const forgotPasswordFailedAction = (): IForgotPasswordFailedAction => ({
   type: FORGOT_PASSWORD_FORM_SUBMIT_FAILED,
-});
-
-export const forgotPasswordResetAction = (): IForgotPasswordResetAction => ({
-  type: FORGOT_PASSWORD_RESET,
 });
 
 export const forgotPasswordThunk: AppThunk = (form) => (dispatch: AppDispatch) => {

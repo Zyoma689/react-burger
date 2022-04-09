@@ -1,16 +1,19 @@
 import React, {FC} from "react";
 import {PATH} from "../../utils/constants";
-import { NavLink, Switch, Route, useRouteMatch } from "react-router-dom";
+import {NavLink, Switch, Route, useRouteMatch, useLocation} from "react-router-dom";
 import {useDispatch} from "../../services/hooks";
 import styles from "./profile.module.css"
-import {logoutThunk} from "../../services/actions/profile";
+import {getUserThunk, logoutThunk} from "../../services/actions/profile";
 import {ProfileEdit} from "../";
-import {ProfileOrders} from "..";
-
+import {UserOrders} from "..";
 
 export const ProfilePage: FC = () => {
   const dispatch = useDispatch();
   const { path } = useRouteMatch();
+
+  React.useEffect(() => {
+    dispatch(getUserThunk());
+  }, [dispatch]);
 
   function onLogout() {
     dispatch(logoutThunk());
@@ -18,7 +21,7 @@ export const ProfilePage: FC = () => {
 
   return (
     <main className={styles.page}>
-      <nav>
+      <nav className={`${styles.nav} mr-15 mt-20`}>
         <ul className={styles.list}>
           <li className={styles.item}>
             <NavLink
@@ -33,7 +36,7 @@ export const ProfilePage: FC = () => {
             <NavLink
               className={`${styles.link} text text_type_main-medium text_color_inactive`}
               activeClassName={styles.active}
-              to={PATH.PROFILE_ORDERS}
+              to={PATH.USER_ORDERS}
             >История заказов
             </NavLink>
           </li>
@@ -51,8 +54,8 @@ export const ProfilePage: FC = () => {
         <Route exact path={path}>
           <ProfileEdit />
         </Route>
-        <Route exact path={path + PATH.ORDERS}>
-          <ProfileOrders />
+        <Route exact path={PATH.USER_ORDERS}>
+          <UserOrders />
         </Route>
       </Switch>
     </main>

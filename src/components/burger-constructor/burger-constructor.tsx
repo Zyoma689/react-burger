@@ -29,11 +29,11 @@ export const BurgerConstructor: FC = () => {
     }
   });
 
-  const constructorIngredients = useSelector((state: any) => state.burgerConstructor.ingredients);
-  const { bun } = useSelector((state: any) => state.burgerConstructor);
+  const constructorIngredients = useSelector((state) => state.burgerConstructor.ingredients);
+  const { bun } = useSelector((state) => state.burgerConstructor);
 
   const totalCost = React.useMemo(() => {
-    return constructorIngredients.reduce((acc: number, cur: TIngredient) => {
+    return constructorIngredients.reduce((acc: number, cur: TConstructorIngredient) => {
       if (cur.price) {
         return acc + cur.price;
       }
@@ -48,7 +48,7 @@ export const BurgerConstructor: FC = () => {
   }
 
   function handlePlaceOrderButtonClick() {
-    if (isAuthenticated) {
+    if (isAuthenticated && bun) {
       const order = [bun._id, ...constructorIngredients.map((ingredient: TConstructorIngredient) => ingredient._id), bun._id];
       dispatch(placeOrderThunk(order));
     } else {

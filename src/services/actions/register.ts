@@ -41,7 +41,6 @@ export const register: AppThunk = (form) => (dispatch: AppDispatch) => {
   api.register(form)
     .then((data) => {
       dispatch(registerSuccessAction(data.user));
-
       setCookie(TOKEN.ACCESS, data.accessToken);
       localStorage.setItem(TOKEN.REFRESH, data.refreshToken);
     })

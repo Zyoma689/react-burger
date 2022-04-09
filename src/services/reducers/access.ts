@@ -14,7 +14,6 @@ import {
   FORGOT_PASSWORD_FORM_SUBMIT,
   FORGOT_PASSWORD_FORM_SUBMIT_FAILED,
   FORGOT_PASSWORD_FORM_SUBMIT_SUCCESS,
-  FORGOT_PASSWORD_RESET
 } from "../constants";
 
 import {
@@ -202,14 +201,6 @@ export const accessReducer = (state = initialState, action: TAccessActions): TAc
         ...state,
         resetPasswordRequest: false,
         resetPasswordFailed: true,
-      }
-    }
-    case FORGOT_PASSWORD_RESET: {
-      return {
-        ...state,
-        resetPasswordRequest: false,
-        resetPasswordFailed: false,
-        resetPasswordSuccess: false,
       }
     }
     case EDIT_PROFILE_FORM_SUBMIT: {

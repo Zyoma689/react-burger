@@ -1,18 +1,19 @@
 import React, {FC} from "react";
 import styles from "./status-board.module.css";
 import {StatusBoardList} from "../status-board-list/status-board-list";
-import {ORDER_TEST} from "../../utils/constants";
+import {useSelector} from "../../services/hooks";
 
 export const StatusBoard: FC = () => {
-  const { total, totalToday } = ORDER_TEST;
+  const { total, totalToday } = useSelector((state) => state.ws);
+  const { done, inProgress } = useSelector((state) => state.feed);
 
   return (
     <section className={styles.board}>
       <div className={styles.stats}>
         <p className={"text text_type_main-medium"}>Готовы:</p>
         <p className={"text text_type_main-medium"}>В работе:</p>
-        <StatusBoardList done={true} />
-        <StatusBoardList/>
+        <StatusBoardList done={true} orders={done}/>
+        <StatusBoardList orders={inProgress}/>
       </div>
       <div>
         <p className={"text text_type_main-medium mt-15"}>Выполнено за все время:</p>

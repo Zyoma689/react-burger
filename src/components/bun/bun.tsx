@@ -6,7 +6,7 @@ import {CustomConstructorElement} from "../custom-constructor-element/custom-con
 import {TBunProps} from "../../types";
 
 export const Bun: FC<TBunProps> = ({ type }) => {
-  const { bun } = useSelector((state: any) => state.burgerConstructor);
+  const { bun } = useSelector((state) => state.burgerConstructor);
 
   return (
     <li className="ml-8">

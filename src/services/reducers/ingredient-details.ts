@@ -5,19 +5,19 @@ import {
   CLOSE_INGREDIENT_DETAILS_MODAL,
 } from "../constants";
 import {TIngredient} from "../../types";
-import {TIngredientDetailsAction} from "../actions/ingredient-details";
+import {TIngredientDetailsActions} from "../actions/ingredient-details";
 
 type TIngredientDetailsState = {
   selectedIngredient: TIngredient | null;
   modalIsOpen: boolean;
 }
 
-const initialState = {
+const initialState: TIngredientDetailsState = {
   selectedIngredient: null,
   modalIsOpen: false,
 };
 
-export const ingredientDetailsReducer = (state = initialState, action: TIngredientDetailsAction): TIngredientDetailsState => {
+export const ingredientDetailsReducer = (state = initialState, action: TIngredientDetailsActions): TIngredientDetailsState => {
   switch (action.type) {
     case SELECT_INGREDIENT: {
       return {

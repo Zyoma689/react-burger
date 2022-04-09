@@ -5,7 +5,7 @@ import {useSelector} from "../../services/hooks";
 
 
 export const OrderDetails = () => {
-  const { orderId } = useSelector((state: any) => state.orderDetails);
+  const { orderId } = useSelector((state) => state.orderDetails);
 
   return (
     <div className={`${styles.container} mt-30 mb-30`}>

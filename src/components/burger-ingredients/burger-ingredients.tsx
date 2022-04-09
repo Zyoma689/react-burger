@@ -15,7 +15,7 @@ import {TIngredient} from "../../types";
 
 export const BurgerIngredients: FC = () => {
   const dispatch = useDispatch();
-  const { ingredients } = useSelector((state: any) => state.burgerIngredients);
+  const { ingredients } = useSelector((state) => state.burgerIngredients);
 
   const bun = React.useMemo(() => ingredients.filter((ingredient: TIngredient) => ingredient.type === INGREDIENT_TYPE.BUN), [ingredients]);
   const sauce = React.useMemo(() => ingredients.filter((ingredient: TIngredient) => ingredient.type === INGREDIENT_TYPE.SAUCE), [ingredients]);

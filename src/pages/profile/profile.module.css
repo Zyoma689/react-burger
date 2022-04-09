@@ -1,10 +1,16 @@
 .page {
   /*display: flex;*/
   /*flex-direction: row;*/
-  width: 1240px;
-  margin: 120px auto 0;
-  display: grid;
-  grid-template-columns: 1fr max-content 1fr;
+  width: 1260px;
+  display: flex;
+  flex-direction: row;
+
+
+  margin: 40px auto;
+}
+
+.nav {
+  max-width: 320px;
 }
 
 

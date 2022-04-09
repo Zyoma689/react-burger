@@ -5,7 +5,7 @@ import {ConstructorCard} from "../constructor-card/constructor-card";
 import {TConstructorIngredient, TConstructorList} from "../../types";
 
 export const ConstructorList: FC<TConstructorList> = ({ onDelete }) => {
-  const { ingredients } = useSelector((state: any) => state.burgerConstructor);
+  const { ingredients } = useSelector((state) => state.burgerConstructor);
 
   return (
     <div className={`${styles.container} custom-scroll pr-2`}>

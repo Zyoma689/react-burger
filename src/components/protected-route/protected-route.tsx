@@ -1,15 +1,17 @@
 import React, {FC} from "react";
-import {Route, Redirect, RouteProps} from "react-router-dom";
+import {Route, Redirect, RouteProps, useLocation} from "react-router-dom";
 import {useSelector} from "../../services/hooks";
 import {PATH} from "../../utils/constants";
 
 export const ProtectedRoute: FC<RouteProps> = ({ children, ...rest }) => {
-  const { isAuthenticated } = useSelector((state: any) => state.access);
+  const { isAuthenticated } = useSelector((state) => state.access);
+  const location = useLocation();
+
 
   return (
     <Route
       {...rest}
-      render={({location}) =>
+      render={() =>
         isAuthenticated ? (
         children
       ) : (
@@ -17,7 +19,7 @@ export const ProtectedRoute: FC<RouteProps> = ({ children, ...rest }) => {
           to={{
             pathname: PATH.LOGIN,
             state: {
-              from: location
+              from: location,
             }
           }}
         />
@@ -25,4 +27,4 @@ export const ProtectedRoute: FC<RouteProps> = ({ children, ...rest }) => {
       }
     />
   );
-}
+};

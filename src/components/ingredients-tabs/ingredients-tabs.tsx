@@ -7,7 +7,7 @@ import {TIngredientsTabs} from "../../types";
 
 
 export const IngredientsTabs: FC<TIngredientsTabs> = ({ onClick }) => {
-  const current = useSelector((state: any) => state.burgerIngredients.tab);
+  const current = useSelector((state) => state.burgerIngredients.tab);
 
   return (
     <nav className={styles.tabs}>

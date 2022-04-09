@@ -1,5 +1,5 @@
 import {ADD_INGREDIENT, CLEAR_INGREDIENTS, DELETE_INGREDIENT, MOVE_INGREDIENT, SET_BUNS} from "../constants";
-import {TBun, TConstructorIngredient, TIngredient} from "../../types";
+import {TBun, TConstructorIngredient} from "../../types";
 
 export interface ISetBunsAction {
   readonly type: typeof SET_BUNS;

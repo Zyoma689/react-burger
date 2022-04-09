@@ -37,9 +37,9 @@ export const NavBar = () => {
 
         <li className={styles.list_item}>
           <Link to={PATH.PROFILE} className={`${styles.link} ml-5`}>
-            <ProfileIcon type={location.pathname === PATH.PROFILE ? "primary" : "secondary"}/>
+            <ProfileIcon type={location.pathname.includes(PATH.PROFILE) ? "primary" : "secondary"}/>
             <p
-              className={`text text_type_main-default ml-2 ${location.pathname === PATH.PROFILE ? styles.link_text_active : styles.link_text}`}>
+              className={`text text_type_main-default ml-2 ${location.pathname.includes(PATH.PROFILE) ? styles.link_text_active : styles.link_text}`}>
               Личный кабинет
             </p>
           </Link>

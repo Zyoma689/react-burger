@@ -8,7 +8,9 @@ import {
   PLACE_ORDER_REQUEST,
   PLACE_ORDER_SUCCESS
 } from "../constants";
+
 import {AppDispatch, AppThunk} from "../types";
+import {refreshTokenThunk} from "./profile";
 
 export interface IOpenOrderDetailsModal {
   readonly type: typeof OPEN_ORDER_DETAILS_MODAL;
@@ -59,7 +61,7 @@ export const placeOrderFailedAction = (): IPlaceOrderFailedAction => ({
   type: PLACE_ORDER_FAILED,
 });
 
-export const placeOrderThunk: AppThunk = (ingredients) => (dispatch: AppDispatch) => {
+export const placeOrderThunk: AppThunk = (ingredients) => (dispatch: AppDispatch | AppThunk) => {
   dispatch(placeOrderAction());
   placeOrder(ingredients)
     .then((res) => {
@@ -70,6 +72,7 @@ export const placeOrderThunk: AppThunk = (ingredients) => (dispatch: AppDispatch
       dispatch(clearQuantityAction());
     })
     .catch(() => {
-      dispatch(placeOrderFailedAction())
+      dispatch(placeOrderFailedAction());
+      dispatch(refreshTokenThunk());
     })
 };

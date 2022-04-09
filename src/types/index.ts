@@ -1,9 +1,16 @@
 import { Location } from "history";
 import {ReactNode} from "react";
+import {
+  WS_CONNECTION_CLOSED,
+  WS_CONNECTION_ERROR,
+  WS_CONNECTION_START,
+  WS_CONNECTION_SUCCESS, WS_GET_ORDERS, WS_SEND_ORDER
+} from "../services/constants";
 
 export type TLocationState = {
   from?: Location;
-  fromCardClick?: Location;
+  ingredientCard?: Location;
+  orderCard?: Location;
 };
 
 export type TBunProps = {
@@ -24,6 +31,7 @@ export type TIngredientData = {
   proteins: number;
   fat: number;
   carbohydrates: number;
+  calories: number;
   price: number;
   image: string;
   image_mobile: string;
@@ -121,4 +129,14 @@ export type TInput = {
 
 export type TString = {
   [name: string]: string;
+}
+
+export type TWSOrderActions = {
+  wsInit: typeof WS_CONNECTION_START,
+  onOpen: typeof WS_CONNECTION_SUCCESS,
+
+  onClose: typeof WS_CONNECTION_CLOSED,
+  onError: typeof WS_CONNECTION_ERROR,
+  onOrders: typeof WS_GET_ORDERS,
+  onSendOrders: typeof WS_SEND_ORDER,
 }

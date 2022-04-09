@@ -62,7 +62,7 @@ export const ProfileEdit: FC = () => {
   }
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className={"ml-25 mt-20"}>
       <div className="mb-6">
         <Input
           type={INPUT.TYPE.TEXT}

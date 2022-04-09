@@ -4,26 +4,32 @@ import {useDispatch, useSelector} from "../../services/hooks";
 import { useParams } from 'react-router-dom'
 import {selectIngredientAction} from "../../services/actions/ingredient-details";
 import {TIngredient} from "../../types";
+import {NotFoundPage} from "../../pages";
 
 export const IngredientDetails: FC = () => {
   const dispatch = useDispatch();
 
-  const { selectedIngredient } = useSelector((state: any) => state.ingredientDetails);
-  const { ingredients } = useSelector((state: any) => state.burgerIngredients);
+  const { selectedIngredient } = useSelector((state) => state.ingredientDetails);
+  const { ingredients } = useSelector((state) => state.burgerIngredients);
   const { id } = useParams<{ id?: string }>();
 
   React.useEffect(() => {
     if (!selectedIngredient && id && ingredients) {
       const ingredient = ingredients.find((ingredient: TIngredient) => ingredient._id === id);
-      dispatch(selectIngredientAction(ingredient));
+      if(ingredient) {
+        dispatch(selectIngredientAction(ingredient));
+      }
     }
   }, [selectedIngredient, id, ingredients, dispatch]);
 
-  const { image_large, name, calories, carbohydrates, fat, proteins } = selectedIngredient || {};
+  if (!selectedIngredient) {
+    return (<NotFoundPage />);
+  }
 
-  return ( selectedIngredient ?
-    (
-      <figure className={`${styles.container}`}>
+  const { image_large, name, calories, carbohydrates, fat, proteins } = selectedIngredient;
+
+  return (
+      <figure className={`${styles.container} mb-15`}>
         <img className={`${styles.image}`} src={image_large} alt={name} />
         <figcaption className={`${styles.caption} mt-4`}>
           <p className="text text_type_main-medium mb-8">{name}</p>
@@ -55,8 +61,5 @@ export const IngredientDetails: FC = () => {
           </ul>
         </figcaption>
       </figure>
-    ) : (
-      <></>
-      )
   );
 };
