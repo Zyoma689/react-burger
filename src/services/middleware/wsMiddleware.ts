@@ -1,11 +1,5 @@
-import { Middleware, MiddlewareAPI } from "redux";
+import {Middleware, MiddlewareAPI} from "redux";
 import {AppDispatch, RootState} from "../types";
-import {
-  wsConnectionClosedAction,
-  wsConnectionErrorAction,
-  wsConnectionGetOrdersAction,
-  wsConnectionSuccessAction
-} from "../actions/ws";
 import {TWSOrderActions} from "../../types";
 
 export const wsMiddleware = (wsActions: TWSOrderActions): Middleware => {
@@ -15,7 +9,7 @@ export const wsMiddleware = (wsActions: TWSOrderActions): Middleware => {
     return (next) => (action) => {
       const { dispatch } = store;
       const { type, payload, wsUrl } = action;
-      const { wsInit, onClose, onSendOrders } = wsActions;
+      const { wsInit, onOpen, onError, onOrders, onClose, onSendOrders } = wsActions;
 
       if (type === wsInit) {
         socket = new WebSocket(wsUrl);
@@ -23,24 +17,24 @@ export const wsMiddleware = (wsActions: TWSOrderActions): Middleware => {
 
       if (socket) {
         socket.onopen = () => {
-          dispatch(wsConnectionSuccessAction());
+          dispatch({ type: onOpen });
         };
 
         socket.onerror = (event) => {
-          dispatch(wsConnectionErrorAction(event));
+          dispatch({ type: onError, payload: event });
         };
 
         socket.onmessage = (event) => {
           const data = JSON.parse(event.data);
           if (data.success) {
-            dispatch(wsConnectionGetOrdersAction(data));
+            dispatch({ type: onOrders, payload: data});
           } else {
             socket!.close();
           }
         };
 
         socket.onclose = () => {
-          dispatch(wsConnectionClosedAction());
+          dispatch({ type: onClose });
         };
 
         if (type === onClose) {
@@ -48,8 +42,7 @@ export const wsMiddleware = (wsActions: TWSOrderActions): Middleware => {
         }
 
         if (type === onSendOrders) {
-          const order = payload;
-          socket.send(JSON.stringify(order));
+          socket.send(JSON.stringify(payload));
         }
       }
       next(action);

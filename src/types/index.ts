@@ -134,7 +134,6 @@ export type TString = {
 export type TWSOrderActions = {
   wsInit: typeof WS_CONNECTION_START,
   onOpen: typeof WS_CONNECTION_SUCCESS,
-
   onClose: typeof WS_CONNECTION_CLOSED,
   onError: typeof WS_CONNECTION_ERROR,
   onOrders: typeof WS_GET_ORDERS,
