@@ -23,11 +23,11 @@ export const Modal: FC<TModal> = ({ children, title, onClose }) => {
   }, [handleEscClose]);
 
   return ReactDOM.createPortal(
-    <div className={`${styles.modal}`}>
+    <div>
       <div className={styles.container}>
         {
           !!title && (
-            <div className={`${styles.title} pt-10 ml-10 mr-10`}>
+            <div className={`${styles.title} mt-10 mr-10 ml-10`}>
               <h2 className={`text text_type_main-large`}>{title}</h2>
             </div>
           )
@@ -42,8 +42,8 @@ export const Modal: FC<TModal> = ({ children, title, onClose }) => {
           <CloseIcon type="primary" />
         </button>
       </div>
-
       <ModalOverlay onClose={onClose}/>
+
     </div>,
     modalRoot
   );

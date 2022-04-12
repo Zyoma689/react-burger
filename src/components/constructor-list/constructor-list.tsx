@@ -1,11 +1,11 @@
 import React, {FC} from "react";
 import styles from "./constructor-list.module.css"
-import {useSelector} from "react-redux";
+import {useSelector} from "../../services/hooks";
 import {ConstructorCard} from "../constructor-card/constructor-card";
 import {TConstructorIngredient, TConstructorList} from "../../types";
 
 export const ConstructorList: FC<TConstructorList> = ({ onDelete }) => {
-  const { ingredients } = useSelector((state: any) => state.burgerConstructor);
+  const { ingredients } = useSelector((state) => state.burgerConstructor);
 
   return (
     <div className={`${styles.container} custom-scroll pr-2`}>

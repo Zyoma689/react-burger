@@ -3,14 +3,14 @@ import styles from "../login/login.module.css";
 import {Button, Input} from "@ya.praktikum/react-developer-burger-ui-components";
 import {INPUT, PATH} from "../../utils/constants";
 import {Link, Redirect} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
-import {forgotPassword} from "../../services/actions/forgot-password";
+import {useDispatch, useSelector} from "../../services/hooks";
+import {forgotPasswordThunk} from "../../services/actions/forgot-password";
 import {TForgotPasswordForm} from "../../types";
 
 export const ForgotPasswordPage: FC = () => {
   const dispatch = useDispatch();
 
-  const { isAuthenticated, forgotPasswordSuccess, forgotPasswordFailed } = useSelector((state: any) => state.access);
+  const { isAuthenticated, forgotPasswordSuccess, forgotPasswordFailed } = useSelector((state) => state.access);
 
   const [ formValue, setFormValue ] = React.useState<TForgotPasswordForm>({
     email: ''
@@ -25,7 +25,7 @@ export const ForgotPasswordPage: FC = () => {
 
   function onSubmit(evt: FormEvent) {
     evt.preventDefault();
-    dispatch(forgotPassword(formValue));
+    dispatch(forgotPasswordThunk(formValue));
   }
 
   if (forgotPasswordSuccess) {
@@ -41,7 +41,6 @@ export const ForgotPasswordPage: FC = () => {
       />
     )
   }
-
 
   return (
     <div className={styles.container}>

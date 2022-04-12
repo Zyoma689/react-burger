@@ -1,11 +1,11 @@
 import React from "react";
 import styles from "./order-details.module.css";
 import image from "../../images/done.svg";
-import {useSelector} from "react-redux";
+import {useSelector} from "../../services/hooks";
 
 
 export const OrderDetails = () => {
-  const { orderId } = useSelector((state: any) => state.orderDetails);
+  const { orderId } = useSelector((state) => state.orderDetails);
 
   return (
     <div className={`${styles.container} mt-30 mb-30`}>

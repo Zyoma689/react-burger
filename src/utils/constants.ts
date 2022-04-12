@@ -1,12 +1,25 @@
-import {TBunType, TIngredientsTitles, TInput, TString} from "../types";
+import {
+  TBunType,
+  TIngredientTypeBun,
+  TIngredientTypeMain,
+  TIngredientTypeSauce,
+  TInput,
+  TString
+} from "../types";
 
-export const INGREDIENTS_TITLES: TIngredientsTitles = {
-  BUN: 'Булки',
-  SAUCE: 'Соусы',
-  MAIN: 'Начинки',
+export const BUN: TIngredientTypeBun = 'Булки';
+export const SAUCE: TIngredientTypeSauce = 'Соусы';
+export const MAIN: TIngredientTypeMain = 'Начинки';
+
+export const INGREDIENTS_TITLES = {
+  BUN,
+  SAUCE,
+  MAIN,
 };
 
 export const BASE_URL: string = 'https://norma.nomoreparties.space/api';
+export const WS_ALL_ORDERS_URL: string = 'wss://norma.nomoreparties.space/orders/all';
+export const WS_USER_ORDERS_URL: string = 'wss://norma.nomoreparties.space/orders';
 
 export const ENDPOINT: TString = {
   LOGIN: '/auth/login',
@@ -87,8 +100,21 @@ export const PATH: TString = {
   FORGOT_PASSWORD: '/forgot-password',
   RESET_PASSWORD: '/reset-password',
   PROFILE: '/profile',
-  PROFILE_ORDERS: '/profile/orders',
   ORDERS: '/orders',
   INGREDIENT: '/ingredients/:id',
   INGREDIENTS: '/ingredients',
+  FEED: '/feed',
+  ORDER: '/feed/:id',
+  USER_ORDERS: '/profile/orders',
+  USER_ORDER: '/profile/orders/:id',
+};
+
+export const STATUS = {
+  CREATED: 'Создан',
+  PENDING: 'Готовится',
+  DONE: 'Выполнен',
+};
+
+export const EXPIRES = {
+  expires: 1200
 };

@@ -1,7 +1,6 @@
 import {BASE_URL, ENDPOINT, TOKEN} from "./constants";
 import {getCookie} from "./utils";
 import {
-  TConstructorIngredient,
   TForgotPasswordForm,
   TLoginForm,
   TProfileForm,
@@ -33,7 +32,7 @@ export const getIngredientsRequest = () => {
     .then(getResponse)
 };
 
-export const placeOrder = ({ ingredients }: { ingredients: TConstructorIngredient[]}) => {
+export const placeOrder = (ingredients: string[]) => {
   return fetch(BASE_URL + ENDPOINT.PLACE_ORDER, {
     method: 'POST',
     headers: {

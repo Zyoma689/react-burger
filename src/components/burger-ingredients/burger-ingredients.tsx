@@ -4,15 +4,18 @@ import {IngredientsCardList} from "../ingredients-card-list/ingredients-card-lis
 import styles from "./burger-ingredients.module.css"
 import {IngredientsTabs} from "../ingredients-tabs/ingredients-tabs";
 import { SCROLL_PARAMS } from "../../utils/constants";
-import {useDispatch, useSelector} from "react-redux";
-import {CHANGE_TAB, changeTab} from "../../services/actions/burger-ingredients";
-import {OPEN_INGREDIENT_DETAILS_MODAL, selectIngredient} from "../../services/actions/ingredient-details";
+import {useDispatch, useSelector} from "../../services/hooks";
+import {changeTabAction} from "../../services/actions/burger-ingredients";
+import {
+  openIngredientDetailsModalAction,
+  selectIngredientAction
+} from "../../services/actions/ingredient-details";
 import {TIngredient} from "../../types";
 
 
 export const BurgerIngredients: FC = () => {
   const dispatch = useDispatch();
-  const { ingredients } = useSelector((state: any) => state.burgerIngredients);
+  const { ingredients } = useSelector((state) => state.burgerIngredients);
 
   const bun = React.useMemo(() => ingredients.filter((ingredient: TIngredient) => ingredient.type === INGREDIENT_TYPE.BUN), [ingredients]);
   const sauce = React.useMemo(() => ingredients.filter((ingredient: TIngredient) => ingredient.type === INGREDIENT_TYPE.SAUCE), [ingredients]);
@@ -23,17 +26,12 @@ export const BurgerIngredients: FC = () => {
   const mainRef = React.useRef<HTMLParagraphElement>(null);
 
   function handleIngredientCardClick(ingredient: TIngredient) {
-    dispatch(selectIngredient(ingredient));
-    dispatch({
-      type: OPEN_INGREDIENT_DETAILS_MODAL,
-    });
+    dispatch(selectIngredientAction(ingredient));
+    dispatch(openIngredientDetailsModalAction());
   }
 
   function handleTabClick(tab: string) {
-    dispatch({
-      type: CHANGE_TAB,
-      tab,
-    });
+    dispatch(changeTabAction(tab));
     switch (tab) {
       case INGREDIENTS_TITLES.BUN:
         if (bunRef && bunRef.current) {
@@ -64,11 +62,11 @@ export const BurgerIngredients: FC = () => {
       const mainScrollTop = mainRef.current.getBoundingClientRect().top - bunRef.current.getBoundingClientRect().top;
 
       if (scrollTop >= mainScrollTop) {
-        dispatch(changeTab(INGREDIENTS_TITLES.MAIN));
+        dispatch(changeTabAction(INGREDIENTS_TITLES.MAIN));
       } else if (scrollTop < sauceScrollTop) {
-        dispatch(changeTab(INGREDIENTS_TITLES.BUN));
+        dispatch(changeTabAction(INGREDIENTS_TITLES.BUN));
       } else {
-        dispatch(changeTab(INGREDIENTS_TITLES.SAUCE));
+        dispatch(changeTabAction(INGREDIENTS_TITLES.SAUCE));
       }
     }
   }
