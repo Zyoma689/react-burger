@@ -18,7 +18,12 @@ export const IngredientCard: FC<TIngredientCard> = ({ ingredient, onSelect }) =>
   });
 
   return (
-    <li className={styles.card} onClick={() => onSelect(ingredient)} ref={dragRef}>
+    <li
+      className={styles.card}
+      onClick={() => onSelect(ingredient)}
+      ref={dragRef}
+      data-test-id={_id}
+    >
       <Link
         to={{ pathname: `/ingredients/${_id}`, state: { ingredientCard: location } }}
         className={styles.link}

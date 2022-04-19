@@ -9,7 +9,7 @@ type TFeedState = {
   inProgress: number[];
 }
 
-const initialState: TFeedState = {
+export const initialState: TFeedState = {
   orders: [],
   selectedOrder: null,
   done: [],

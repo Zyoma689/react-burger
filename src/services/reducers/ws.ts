@@ -7,6 +7,7 @@ import {
   WS_CONNECTION_SUCCESS,
   WS_GET_ORDERS,
 } from "../constants";
+import exp from "constants";
 
 type TWSState = {
   wsConnected: boolean;
@@ -19,7 +20,7 @@ type TWSState = {
   error?: Event;
 }
 
-const initialState: TWSState = {
+export const initialState: TWSState = {
   wsConnected: false,
   orders: [],
   userOrders: [],
@@ -34,7 +35,7 @@ export const wsReducer = (state = initialState, action: TWSActions) => {
     case WS_CONNECTION_START: {
       return {
         ...state,
-        loading: true
+        loading: true,
       }
     }
     case WS_CONNECTION_SUCCESS: {

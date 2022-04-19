@@ -69,7 +69,7 @@ type TAccessActions =
   | TProfileActions
 
 
-const initialState = {
+export const initialState = {
   isAuthenticated: false,
 
   user: {

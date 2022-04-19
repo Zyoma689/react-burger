@@ -30,9 +30,17 @@ export const IngredientDetails: FC = () => {
 
   return (
       <figure className={`${styles.container} mb-15`}>
-        <img className={`${styles.image}`} src={image_large} alt={name} />
+        <img
+          className={`${styles.image}`}
+          src={image_large}
+          alt={name}
+          data-test={'ingredient-details-image'}
+        />
         <figcaption className={`${styles.caption} mt-4`}>
-          <p className="text text_type_main-medium mb-8">{name}</p>
+          <p
+            className="text text_type_main-medium mb-8"
+            data-test={'ingredient-details-name'}
+          >{name}</p>
           <ul className={`${styles.table}`}>
             <li className={`${styles.item}`}>
               <p className="text text_type_main-default text_color_inactive">Калории,ккал</p>
@@ -47,16 +55,27 @@ export const IngredientDetails: FC = () => {
               <p className="text text_type_main-default text_color_inactive">Углеводы, г</p>
             </li>
             <li className={`${styles.item}`}>
-              <p className="text text_type_digits-default text_color_inactive">{calories}</p>
+              <p
+                className="text text_type_digits-default text_color_inactive"
+                data-test={'ingredient-details-calories'}>{calories}</p>
             </li>
             <li className={`${styles.item}`}>
-              <p className="text text_type_digits-default text_color_inactive">{proteins}</p>
+              <p
+                className="text text_type_digits-default text_color_inactive"
+                data-test={'ingredient-details-proteins'}
+              >{proteins}</p>
             </li>
             <li className={`${styles.item}`}>
-              <p className="text text_type_digits-default text_color_inactive">{fat}</p>
+              <p
+                className="text text_type_digits-default text_color_inactive"
+                data-test={'ingredient-details-fat'}
+              >{fat}</p>
             </li>
             <li className={`${styles.item}`}>
-              <p className="text text_type_digits-default text_color_inactive">{carbohydrates}</p>
+              <p
+                className="text text_type_digits-default text_color_inactive"
+                data-test={'ingredient-details-carbohydrates'}
+              >{carbohydrates}</p>
             </li>
           </ul>
         </figcaption>

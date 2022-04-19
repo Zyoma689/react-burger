@@ -76,18 +76,25 @@ export const BurgerConstructor: FC = () => {
   }
 
   return (
-    <section className={`${styles.section} mt-25`} ref={dropTargetRef}>
-      <ul className={`${styles.list}`}>
+    <section className={`${styles.section} mt-25`}>
+      <ul className={`${styles.list}`} ref={dropTargetRef} data-test={'constructor'}>
 
         {<Bun type={BUN_TYPE.TOP} />}
         <ConstructorList onDelete={handleDeleteClick} />
         {<Bun type={BUN_TYPE.BOTTOM} />}
 
       </ul>
-      <div className={`${styles.container} mt-10 mr-4`}>
-        <span className="text text_type_digits-medium mr-10">{totalCost} <CurrencyIcon type="primary" /></span>
-
-        <Button type="primary" size="large" onClick={handlePlaceOrderButtonClick} disabled={!bun}>
+      <div className={`${styles.container} mt-10 mr-4`} data-test={'place-order'}>
+        <span
+          className="text text_type_digits-medium mr-10"
+          data-test={'total-cost'}
+        >{totalCost} <CurrencyIcon type="primary" /></span>
+        <Button
+          type="primary"
+          size="large"
+          onClick={handlePlaceOrderButtonClick}
+          disabled={!bun}
+        >
           Оформить заказ
         </Button>
       </div>
