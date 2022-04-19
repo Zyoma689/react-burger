@@ -107,6 +107,7 @@ export const PATH: TString = {
   ORDER: '/feed/:id',
   USER_ORDERS: '/profile/orders',
   USER_ORDER: '/profile/orders/:id',
+  REACT_BURGER: '/react-burger',
 };
 
 export const STATUS = {

@@ -1,5 +1,5 @@
 import React, {FC} from "react";
-import { Route, Switch, useHistory, useLocation } from "react-router-dom";
+import {Redirect, Route, Switch, useHistory, useLocation} from "react-router-dom";
 import { useSelector, useDispatch } from "../../services/hooks";
 
 import { AppHeader } from "../app-header/app-header";
@@ -94,6 +94,10 @@ export const App: FC = () => {
 
         <Route exact path={PATH.ORDER}>
           <OrderInfoPage />
+        </Route>
+
+        <Route exact path={PATH.REACT_BURGER}>
+          <Redirect to={PATH.HOME} />
         </Route>
 
         <ProtectedRoute exact path={PATH.USER_ORDER}>

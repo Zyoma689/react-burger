@@ -16,3 +16,7 @@
 1. `git clone` [`https://github.com/Zyoma689/react-burger.git`](https://github.com/Zyoma689/react-burger.git)
 2. `npm install`
 3. `npm start`
+
+## Ссылка на проект:
+
+* [`https://zyoma689.github.io/react-burger/`](https://zyoma689.github.io/react-burger/)
