@@ -23,7 +23,7 @@ export const Modal: FC<TModal> = ({ children, title, onClose }) => {
   }, [handleEscClose]);
 
   return ReactDOM.createPortal(
-    <div>
+    <div data-test={'modal'}>
       <div className={styles.container}>
         {
           !!title && (
@@ -38,6 +38,7 @@ export const Modal: FC<TModal> = ({ children, title, onClose }) => {
           type="button"
           aria-label="Закрыть"
           onClick={onClose}
+          data-test={'modal-close-btn'}
         >
           <CloseIcon type="primary" />
         </button>

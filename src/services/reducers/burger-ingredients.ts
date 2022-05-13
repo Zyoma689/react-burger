@@ -21,7 +21,7 @@ type TBurgerIngredientsState = {
   tab: string;
 }
 
-const initialState: TBurgerIngredientsState = {
+export const initialState: TBurgerIngredientsState = {
   ingredients: [],
   ingredientsRequest: false,
   ingredientsFailed: false,
@@ -41,7 +41,7 @@ export const burgerIngredientsReducer = (state = initialState, action: TBurgerIn
         ...state,
         ingredientsRequest: false,
         ingredientsFailed: false,
-        ingredients: action.ingredients
+        ingredients: action.ingredients,
       };
     }
     case GET_INGREDIENTS_FAILED: {

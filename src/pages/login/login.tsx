@@ -43,7 +43,7 @@ export const LoginPage: FC = () => {
   return (
     <div className={styles.container}>
       <h2 className={`text text_type_main-medium mb-6`}>Вход</h2>
-      <form className={styles.form} onSubmit={onSubmit}>
+      <form className={styles.form} onSubmit={onSubmit} data-test={'login-form'}>
         <div className="mb-6">
           <Input
             type={INPUT.TYPE.EMAIL}
