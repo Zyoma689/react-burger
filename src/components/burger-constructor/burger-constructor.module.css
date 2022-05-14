@@ -13,7 +13,17 @@
   grid-template-columns: max-content;
   gap: calc(var(--offset-base-size)  * 4);
   margin: 0;
-  padding: 0;
+  padding: 20px 10px;
+  border-radius: 50px;
+  border: 1px transparent solid;
+}
+
+.can_drop {
+  border: 1px dashed var(--colors-interface-accent);
+}
+
+.active {
+  box-shadow: 0 0 50px 1px var(--colors-interface-accent);
 }
 
 .container {

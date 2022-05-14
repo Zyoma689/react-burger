@@ -22,11 +22,12 @@ export const BurgerConstructor: FC = () => {
 
   const history = useHistory();
 
-  const [, dropTargetRef] = useDrop({
+  const [{ isOver, canDrop }, dropTargetRef] = useDrop({
     accept: DND_TYPES.CARD_FROM_INGREDIENTS,
     drop(ingredient: TIngredient) {
       handleOnDrop(ingredient);
-    }
+    },
+    collect: monitor => ({ isOver: monitor.isOver(), canDrop: monitor.canDrop() }),
   });
 
   const constructorIngredients = useSelector((state) => state.burgerConstructor.ingredients);
@@ -77,14 +78,14 @@ export const BurgerConstructor: FC = () => {
 
   return (
     <section className={`${styles.section} mt-25`}>
-      <ul className={`${styles.list}`} ref={dropTargetRef} data-test={'constructor'}>
+      <ul className={`${styles.list} ${canDrop && styles.can_drop} ${isOver && styles.active}`} ref={dropTargetRef} data-test={'constructor'}>
 
         {<Bun type={BUN_TYPE.TOP} />}
         <ConstructorList onDelete={handleDeleteClick} />
         {<Bun type={BUN_TYPE.BOTTOM} />}
 
       </ul>
-      <div className={`${styles.container} mt-10 mr-4`} data-test={'place-order'}>
+      <div className={`${styles.container} mt-5 mr-4`} data-test={'place-order'}>
         <span
           className="text text_type_digits-medium mr-10"
           data-test={'total-cost'}
