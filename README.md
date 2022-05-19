@@ -28,7 +28,7 @@
 </h4>
 
 <h3 align="center">
-  <a href=".." title="Link">Demo</a> 
+  <a href="http://stellar-burgers.iv-a.ru/" title="Link">Demo</a> 
   •
   <a href="https://iv-a.github.io/react-burger/">GitHubPages</a>
 </h3>
